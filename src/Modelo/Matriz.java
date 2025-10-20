@@ -1,0 +1,73 @@
+package Modelo;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class Matriz {
+	private int[][] sudoku;
+	
+	public Matriz() {
+		sudoku= new int[9][9];
+		rellenarDeCeros();
+	}
+
+	private void rellenarDeCeros() {
+		for(int fila=0;fila<sudoku.length;fila++) {
+			for(int col=0;col<sudoku.length;col++) {
+				sudoku[fila][col]=0;
+			}
+		}
+	}
+
+	public int[][] getMatriz() {
+		return sudoku.clone();
+	}
+
+	public void setMatriz(int x,int y, int valor) {
+		if(valor<1 || valor >9)
+			throw new IllegalArgumentException("el valor tiene que estar entre 1 y 9");
+		if(!posicionValidaParaValor(x,y,valor))	
+			throw new IllegalArgumentException("el valor la esta posicionado en una fila , columna o cuadrante 3x3");
+		sudoku[x][y]= valor;
+	}
+	
+	public boolean posicionValidaParaValor(int x, int y, int valor) {
+		return verficacionPorfila(x,y,valor) || verificacionPorColumna(x,y,valor) || verificacionPorCuadrante(x,y,valor);
+	}
+
+	private boolean verficacionPorfila(int x, int y, int valor) {
+		int[] fila = sudoku[x];
+		Set<Integer> filaSet =  new HashSet<>(deArrayASet(fila));
+		
+		return filaSet.contains(valor);
+	}
+
+	private boolean verificacionPorColumna(int x, int y, int valor) {
+		int[] columna = IntStream.range(0, sudoku.length).map(i -> sudoku[i][y]).toArray();
+		Set<Integer> columnaSet =  new HashSet<>(deArrayASet(columna));
+		
+		return columnaSet.contains(valor);
+	}
+	
+	private boolean verificacionPorCuadrante(int x, int y, int valor) {
+		   int filaInicio = (x / 3) * 3;
+		    int colInicio = (y / 3) * 3;
+
+		    for (int i = filaInicio; i < filaInicio + 3; i++) {
+		        for (int j = colInicio; j < colInicio + 3; j++) {
+		            if (sudoku[i][j] == valor) {
+		                return true;
+		            }
+		        }
+		    }
+		    return false;
+	}
+	
+	private Set<Integer> deArrayASet(int[] array) {
+		return Arrays.stream(array).boxed().collect(Collectors.toSet());
+	}
+	
+}
