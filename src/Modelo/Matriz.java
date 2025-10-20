@@ -26,12 +26,13 @@ public class Matriz {
 		return sudoku.clone();
 	}
 
-	public void setMatriz(int x,int y, int valor) {
+	public boolean setMatriz(int x,int y, int valor) {
 		if(valor<1 || valor >9)
 			throw new IllegalArgumentException("el valor tiene que estar entre 1 y 9");
 		if(!posicionValidaParaValor(x,y,valor))	
-			throw new IllegalArgumentException("el valor la esta posicionado en una fila , columna o cuadrante 3x3");
+			return false;
 		sudoku[x][y]= valor;
+		return true;
 	}
 	
 	public boolean posicionValidaParaValor(int x, int y, int valor) {
@@ -57,10 +58,9 @@ public class Matriz {
 		    int colInicio = (y / 3) * 3;
 
 		    for (int i = filaInicio; i < filaInicio + 3; i++) {
-		        for (int j = colInicio; j < colInicio + 3; j++) {
-		            if (sudoku[i][j] == valor) {
+		        for (int j = colInicio; j < colInicio + 3; j++) {  //creo que tiene un error, cuando verifica la casilla x, y = valor antes de la verficacion
+		            if (sudoku[i][j] == valor) 
 		                return true;
-		            }
 		        }
 		    }
 		    return false;
@@ -68,6 +68,44 @@ public class Matriz {
 	
 	private Set<Integer> deArrayASet(int[] array) {
 		return Arrays.stream(array).boxed().collect(Collectors.toSet());
+	}
+	
+	public boolean matrizCompleta(){
+		for(int fila=0;fila<sudoku.length;fila++) {
+			for(int col=0;col<sudoku.length;col++) {
+				if(sudoku[fila][col]== 0)
+					return false;
+			}
+		}
+		return true;
+	}
+	
+	public int[][] clonar(){
+		int[][] clonar = new int[9][9];
+		for(int fila=0;fila<sudoku.length;fila++) {
+			for(int col=0;col<sudoku.length;col++) {
+				clonar[fila][col] = sudoku[fila][col];
+			}
+		}
+		return clonar;
+	}
+	
+	public void marcarCasillasConNumerosValidos(int num) {
+		if(num<15 || num>40) {
+			throw new IllegalArgumentException("numero de casillas no valido, tiene que estar entre 15 o 40");
+		}
+		int yaMarcadas=0;
+		while(yaMarcadas<=num) {
+			int numA = (int) Math.random()*9+1;
+			int[] pos = posionesAleatoria();
+			if(setMatriz(pos[0],pos[1],numA)) {yaMarcadas++;}
+		}	
+		
+	}
+
+	private int[] posionesAleatoria() {
+		int pos= (int) Math.random()*81+1;
+		return new int[] {pos/sudoku.length,pos%sudoku.length};
 	}
 	
 }
