@@ -58,7 +58,7 @@ public class Matriz {
 		    int colInicio = (y / 3) * 3;
 
 		    for (int i = filaInicio; i < filaInicio + 3; i++) {
-		        for (int j = colInicio; j < colInicio + 3; j++) {  //creo que tiene un error, cuando verifica la casilla x, y = valor antes de la verficacion
+		        for (int j = colInicio; j < colInicio + 3; j++) { 
 		            if (sudoku[i][j] == valor) 
 		                return true;
 		        }
@@ -117,19 +117,6 @@ public class Matriz {
 	private int[] posionesAleatoria() {
 		int pos= (int) (Math.random()*81);
 		return new int[] {pos/sudoku.length,pos%sudoku.length};
-	}
-	
-	///metodo para test
-	public void testMode() {
-		sudoku= new int[][]{{0,6,8,4,2,7,1,0,3}
-						   ,{3,4,2,9,1,5,8,6,7}
-						   ,{1,9,7,6,8,3,5,2,4}
-						   ,{6,8,5,1,3,2,7,4,9}
-						   ,{7,3,4,5,9,8,6,1,2}
-						   ,{2,1,9,7,6,4,3,5,8}
-						   ,{4,7,3,2,5,6,9,8,1}
-						   ,{8,5,1,3,4,9,2,7,6}
-						   ,{0,1,6,8,1,1,4,3,5}};
 	}
 
 	 void setMatrizClonada(int[][] c) {

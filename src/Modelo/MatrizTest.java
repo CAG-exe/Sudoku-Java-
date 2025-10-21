@@ -9,7 +9,7 @@ public class MatrizTest {
 	@Test
 	public void ingresarValorValido() {
 		Matriz m = new Matriz();
-		m.testMode();
+		testMode(m);
 		boolean valor = m.setMatriz(0, 0, 5);
 		assertTrue(valor);
 	}
@@ -17,7 +17,7 @@ public class MatrizTest {
 	@Test
 	public void ingresarValorInvalido() {
 		Matriz m = new Matriz();
-		m.testMode();
+		testMode(m);
 		boolean valor = m.setMatriz(0, 0, 1);
 		assertFalse(valor);
 	}
@@ -25,7 +25,7 @@ public class MatrizTest {
 	@Test
 	public void ingresarValorInvalidoEnSubcasillas() {
 		Matriz m = new Matriz();
-		m.testMode();
+		testMode(m);
 		boolean valor = m.setMatriz(0, 0, 9);
 		assertFalse(valor);
 	}
@@ -43,9 +43,17 @@ public class MatrizTest {
 	}
 	
 	@Test
+	public void ingresarValorEnCasillaDeIgualValor() {
+		Matriz m = new Matriz();
+		testMode(m);
+		boolean valor = m.setMatriz(0, 1, 6);
+		assertFalse(valor);
+	}
+	
+	@Test
 	public void TestClonar() {
 		Matriz m = new Matriz();
-		m.testMode();
+		testMode(m);
 		Matriz c = new Matriz();
 		boolean igualdad = true;
 		c.setMatrizClonada(m.clonar());
@@ -88,7 +96,7 @@ public class MatrizTest {
 	@Test
 	public void matrizEstaCompleta() {
 		Matriz m = new Matriz();
-		m.testMode();
+		testMode(m);
 		m.setMatriz(0, 0, 5);
 		m.setMatriz(0, 7, 9);
 		m.setMatriz(8, 0, 9);
@@ -100,10 +108,23 @@ public class MatrizTest {
 	@Test
 	public void matrizEstaIncompleta() {
 		Matriz m = new Matriz();
-		m.testMode();
+		testMode(m);
 		boolean completa= m.matrizCompleta();
 		assertFalse(completa);
 		
+	}
+	
+	private void testMode(Matriz m) {
+		int[][] Mtest =  new int[][]{{0,6,8,4,2,7,1,0,3}
+		   							,{3,4,2,9,1,5,8,6,7}
+		   							,{1,9,7,6,8,3,5,2,4}
+		   							,{6,8,5,1,3,2,7,4,9}
+		   							,{7,3,4,5,9,8,6,1,2}
+		   							,{2,1,9,7,6,4,3,5,8}
+		   							,{4,7,3,2,5,6,9,8,1}
+		   							,{8,5,1,3,4,9,2,7,6}
+		   							,{0,1,6,8,1,1,4,3,5}};
+		 m.setMatrizClonada(Mtest);
 	}
 	
 	
