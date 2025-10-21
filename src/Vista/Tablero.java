@@ -2,17 +2,12 @@ package Vista;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JLabel;
-
+import javax.swing.BorderFactory;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import javax.swing.SwingConstants;
-
 import Modelo.Matriz;
 
 public class Tablero extends JPanel {
@@ -41,7 +36,7 @@ public class Tablero extends JPanel {
 				casilla.setBounds(x,y,40,40);
 				casilla.setHorizontalAlignment(SwingConstants.CENTER);
 				casilla.setFont(new Font("Tahoma", Font.PLAIN, 20));
-				valorValido(casilla);
+				valorValido(casilla,fila,col);
 				x+=40;
 				add(casilla);
 				matrizGUI[fila][col] = casilla;
@@ -51,14 +46,14 @@ public class Tablero extends JPanel {
 		
 		}
 	}
-	private void valorValido(JTextField jText) {
+	private void valorValido(JTextField jText,int fila,int col) {
 		jText.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				int key = e.getKeyChar();
 				boolean numeros = key >= 48 && key <= 57;
 				if ((!numeros || jText.getText().trim().length() == 1) || (key == 48 && jText.getText().trim().length() == 0)){
-				    e.consume();
+					e.consume();
 				}
 			}
 		});
@@ -71,10 +66,14 @@ public class Tablero extends JPanel {
 				if(copia[fila][col]!=0) {
 					matrizGUI[fila][col].setText(copia[fila][col]+"");
 					matrizGUI[fila][col].setEditable(false);
+					matrizGUI[fila][col].setEnabled(false);
+					matrizGUI[fila][col].setForeground(Color.BLACK); 
+					matrizGUI[fila][col].setBorder(BorderFactory.createLineBorder(Color.GRAY));
+					matrizGUI[fila][col].setDisabledTextColor(Color.BLACK);
 					matrizGUI[fila][col].setBackground(new Color(195, 215, 234));;
-				}
 			}
 		}
 	}
-
+	}
 }
+
