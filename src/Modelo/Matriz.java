@@ -21,17 +21,17 @@ public class Matriz {
 			}
 		}
 	}
-
-	public int[][] getMatriz() {
-		return sudoku.clone();
+	
+	public int getValorEnMatriz(int x,int y) {
+		return sudoku[x][y];
 	}
 
 	public boolean setMatriz(int x,int y, int valor) {
 		if(valor<1 || valor >9)
 			throw new IllegalArgumentException("el valor tiene que estar entre 1 y 9");
-		if(!posicionValidaParaValor(x,y,valor))	
+		if(sudoku[x][y] == valor || posicionValidaParaValor(x,y,valor))	
 			return false;
-		sudoku[x][y]= valor;
+		sudoku[x][y] = valor;
 		return true;
 	}
 	
@@ -80,6 +80,10 @@ public class Matriz {
 		return true;
 	}
 	
+	public int[][] getMatriz() {
+		return clonar();
+	}
+	
 	public int[][] clonar(){
 		int[][] clonar = new int[9][9];
 		for(int fila=0;fila<sudoku.length;fila++) {
@@ -94,18 +98,42 @@ public class Matriz {
 		if(num<15 || num>40) {
 			throw new IllegalArgumentException("numero de casillas no valido, tiene que estar entre 15 o 40");
 		}
-		int yaMarcadas=0;
-		while(yaMarcadas<=num) {
-			int numA = (int) Math.random()*9+1;
+		for(int i=0;i<num;i++){
+		buscarCasillaYmarcar();
+		}
+	}
+
+	private void buscarCasillaYmarcar() {
+		boolean marcar = true;
+		while(marcar) {
+			int numA = (int)(Math.random()*9)+1;
 			int[] pos = posionesAleatoria();
-			if(setMatriz(pos[0],pos[1],numA)) {yaMarcadas++;}
-		}	
-		
+			if(getValorEnMatriz(pos[0], pos[1])==0  && setMatriz(pos[0],pos[1],numA)) {
+				marcar=false;
+				}
+		}
 	}
 
 	private int[] posionesAleatoria() {
-		int pos= (int) Math.random()*81+1;
+		int pos= (int) (Math.random()*81);
 		return new int[] {pos/sudoku.length,pos%sudoku.length};
+	}
+	
+	///metodo para test
+	public void testMode() {
+		sudoku= new int[][]{{0,6,8,4,2,7,1,0,3}
+						   ,{3,4,2,9,1,5,8,6,7}
+						   ,{1,9,7,6,8,3,5,2,4}
+						   ,{6,8,5,1,3,2,7,4,9}
+						   ,{7,3,4,5,9,8,6,1,2}
+						   ,{2,1,9,7,6,4,3,5,8}
+						   ,{4,7,3,2,5,6,9,8,1}
+						   ,{8,5,1,3,4,9,2,7,6}
+						   ,{0,1,6,8,1,1,4,3,5}};
+	}
+
+	 void setMatrizClonada(int[][] c) {
+		sudoku=c;
 	}
 	
 }
