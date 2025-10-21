@@ -1,0 +1,80 @@
+package Vista;
+
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.SwingConstants;
+
+import Modelo.Matriz;
+
+public class Tablero extends JPanel {
+
+	private static final long serialVersionUID = 1L;
+	private JTextField[][]  matrizGUI;
+	private Matriz sudoku;;
+
+	public Tablero() {
+		setLayout(null);
+		
+		sudoku = new Matriz();
+		sudoku.marcarCasillasConNumerosValidos(20);
+		matrizGUI = new JTextField[9][9];
+		
+		constructorDeMatriz();
+		marcarTablero();
+	}
+	
+	private void constructorDeMatriz() {
+		int x=80;
+		int y=80;
+		for(int fila=0 ; fila<9 ; fila++) {
+			for(int col=0 ; col<9 ; col++) {	
+				JTextField casilla = new JTextField();
+				casilla.setBounds(x,y,40,40);
+				casilla.setHorizontalAlignment(SwingConstants.CENTER);
+				casilla.setFont(new Font("Tahoma", Font.PLAIN, 20));
+				valorValido(casilla);
+				x+=40;
+				add(casilla);
+				matrizGUI[fila][col] = casilla;
+				}
+			x=80;
+			y+=40;
+		
+		}
+	}
+	private void valorValido(JTextField jText) {
+		jText.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int key = e.getKeyChar();
+				boolean numeros = key >= 48 && key <= 57;
+				if ((!numeros || jText.getText().trim().length() == 1) || (key == 48 && jText.getText().trim().length() == 0)){
+				    e.consume();
+				}
+			}
+		});
+	}
+	
+	private void marcarTablero() {
+		int[][] copia = sudoku.clonar();
+		for(int fila=0 ; fila<9 ; fila++) {
+			for(int col=0 ; col<9 ; col++) {
+				if(copia[fila][col]!=0) {
+					matrizGUI[fila][col].setText(copia[fila][col]+"");
+					matrizGUI[fila][col].setEditable(false);
+					matrizGUI[fila][col].setBackground(new Color(195, 215, 234));;
+				}
+			}
+		}
+	}
+
+}
