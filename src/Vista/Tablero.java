@@ -26,12 +26,13 @@ public class Tablero extends JPanel {
 		su.resolverSudoku();
 		constructorDeMatriz();
 		marcarTablero();
+		setBackground(new Color(206, 175, 174));
 		
 		
 	}
 	
 	private void constructorDeMatriz() {
-		int x=80;
+		int x=220;
 		int y=80;
 		for(int fila=0 ; fila<9 ; fila++) {
 			for(int col=0 ; col<9 ; col++) {	
@@ -51,7 +52,7 @@ public class Tablero extends JPanel {
 				add(casilla);
 				matrizGUI[fila][col] = casilla;
 				}
-			x=80;
+			x=220;
 			y+=40;
 		
 		}
