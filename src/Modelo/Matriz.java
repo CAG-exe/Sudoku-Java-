@@ -1,7 +1,9 @@
 package Modelo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -23,16 +25,26 @@ public class Matriz {
 	}
 	
 	public int getValorEnMatriz(int x,int y) {
+		if(x < 0 || y < 0 || x > sudoku.length || y > sudoku.length) {
+			throw new IllegalArgumentException("Los parametros X / Y son invalidos");
+		}
 		return sudoku[x][y];
 	}
-
-	public boolean setMatriz(int x,int y, int valor) {
+	
+	public boolean esSeguro(int x, int y, int valor) {
 		if(valor<1 || valor >9)
 			throw new IllegalArgumentException("el valor tiene que estar entre 1 y 9");
 		if(sudoku[x][y] == valor || posicionValidaParaValor(x,y,valor))	
 			return false;
-		sudoku[x][y] = valor;
 		return true;
+	}
+
+	public void setMatriz(int x,int y, int valor) {
+		if(x < 0 || y < 0 || x > sudoku.length || y > sudoku.length) {
+			throw new IllegalArgumentException("Los parametros X / Y son invalidos");
+		}
+		sudoku[x][y] = valor;
+		return;
 	}
 	
 	public boolean posicionValidaParaValor(int x, int y, int valor) {
@@ -80,10 +92,6 @@ public class Matriz {
 		return true;
 	}
 	
-	public int[][] getMatriz() {
-		return clonar();
-	}
-	
 	public int[][] clonar(){
 		int[][] clonar = new int[9][9];
 		for(int fila=0;fila<sudoku.length;fila++) {
@@ -108,7 +116,8 @@ public class Matriz {
 		while(marcar) {
 			int numA = (int)(Math.random()*9)+1;
 			int[] pos = posionesAleatoria();
-			if(getValorEnMatriz(pos[0], pos[1])==0  && setMatriz(pos[0],pos[1],numA)) {
+			if(getValorEnMatriz(pos[0], pos[1])==0  && esSeguro(pos[0],pos[1],numA)) {
+				setMatriz(pos[0],pos[1],numA);
 				marcar=false;
 				}
 		}
@@ -122,5 +131,15 @@ public class Matriz {
 	 void setMatrizClonada(int[][] c) {
 		sudoku=c;
 	}
+
+	 public boolean casillaMarcada(int fila, int columna) {
+		 if(fila < 0 || columna < 0 || fila > sudoku.length || columna > sudoku.length) {
+				throw new IllegalArgumentException("Los parametros fila o columna son invalidos");
+			}
+		 if(sudoku[fila][columna] == 0) 
+			return false;
+		
+		return true;
+	 }
 	
 }

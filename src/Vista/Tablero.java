@@ -9,6 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.SwingConstants;
 import Modelo.Matriz;
+import Modelo.Sudoku;
 
 public class Tablero extends JPanel {
 
@@ -18,13 +19,15 @@ public class Tablero extends JPanel {
 
 	public Tablero() {
 		setLayout(null);
-		
-		sudoku = new Matriz();
-		sudoku.marcarCasillasConNumerosValidos(20);
-		matrizGUI = new JTextField[9][9];
-		
+		Sudoku su = new Sudoku();
+		sudoku = su.getMatrizJuego();
+		sudoku.marcarCasillasConNumerosValidos(15);
+		matrizGUI = new JTextField[9][9]; 
+		su.resolverSudoku();
 		constructorDeMatriz();
 		marcarTablero();
+		
+		
 	}
 	
 	private void constructorDeMatriz() {

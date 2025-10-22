@@ -10,7 +10,7 @@ public class MatrizTest {
 	public void ingresarValorValido() {
 		Matriz m = new Matriz();
 		testMode(m);
-		boolean valor = m.setMatriz(0, 0, 5);
+		boolean valor = m.esSeguro(0, 0, 5);
 		assertTrue(valor);
 	}
 	
@@ -18,7 +18,7 @@ public class MatrizTest {
 	public void ingresarValorInvalido() {
 		Matriz m = new Matriz();
 		testMode(m);
-		boolean valor = m.setMatriz(0, 0, 1);
+		boolean valor = m.esSeguro(0, 0, 1);
 		assertFalse(valor);
 	}
 	
@@ -26,28 +26,65 @@ public class MatrizTest {
 	public void ingresarValorInvalidoEnSubcasillas() {
 		Matriz m = new Matriz();
 		testMode(m);
-		boolean valor = m.setMatriz(0, 0, 9);
+		boolean valor = m.esSeguro(0, 0, 9);
 		assertFalse(valor);
 	}
 	
 	@Test (expected= IllegalArgumentException.class)
 	public void ingresarValorNegativo() {
 		Matriz m = new Matriz();
-		assertTrue(m.setMatriz(0, 0, -1));
+		assertTrue(m.esSeguro(0, 0, -1));
 	}
 	
 	@Test (expected= IllegalArgumentException.class)
 	public void ingresarValorMuyAlto() {
 		Matriz m = new Matriz();
-		assertTrue(m.setMatriz(0, 0, 10));
+		assertTrue(m.esSeguro(0, 0, 10));
 	}
 	
 	@Test
 	public void ingresarValorEnCasillaDeIgualValor() {
 		Matriz m = new Matriz();
 		testMode(m);
-		boolean valor = m.setMatriz(0, 1, 6);
+		boolean valor = m.esSeguro(0, 1, 6);
 		assertFalse(valor);
+	} 
+	
+	
+	
+	
+	@Test
+	public void setMatrizTest() {
+		Matriz m = new Matriz();
+		assertFalse(m.getValorEnMatriz(1, 4) == 6);
+		m.setMatriz(1, 4, 6);
+		
+		assertTrue(m.getValorEnMatriz(1, 4) == 6);
+	}
+	
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void setMatrizConPosicion1NegativoTest() {
+		Matriz m = new Matriz();
+		m.setMatriz(-1, 4, 6);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void setMatrizConPosicion2NegativoTest() {
+		Matriz m = new Matriz();
+		m.setMatriz(1, -4, 6);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void setMatrizConPosicion1PasadaTest() {
+		Matriz m = new Matriz();
+		m.setMatriz(1123, 1, 6);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void setMatrizConPosicion2PasadaTest() {
+		Matriz m = new Matriz();
+		m.setMatriz(1, 120, 6);
 	}
 	
 	@Test
@@ -92,6 +129,30 @@ public class MatrizTest {
 		m.marcarCasillasConNumerosValidos(10);
 	}
 	
+	@Test (expected= IllegalArgumentException.class)
+	public void getValorEnMatrizFueraDeRangoPosicion1() {
+		Matriz m = new Matriz();
+		m.getValorEnMatriz(1283, 2);
+	}
+	
+	@Test (expected= IllegalArgumentException.class)
+	public void getValorEnMatrizFueraDeRangoPosicion2() {
+		Matriz m = new Matriz();
+		m.getValorEnMatriz(1, 212);
+	}
+	
+	
+	@Test (expected= IllegalArgumentException.class)
+	public void getValorEnMatrizPosicion1Negativo() {
+		Matriz m = new Matriz();
+		m.getValorEnMatriz(-2, 2);
+	}
+	
+	@Test (expected= IllegalArgumentException.class)
+	public void getValorEnMatrizPosicion2Negativo() {
+		Matriz m = new Matriz();
+		m.getValorEnMatriz(2, -2);
+	}
 	
 	@Test
 	public void matrizEstaCompleta() {
@@ -112,6 +173,39 @@ public class MatrizTest {
 		boolean completa= m.matrizCompleta();
 		assertFalse(completa);
 		
+	}
+	
+	@Test
+	public void casillaMarcadaTest() {
+		Matriz m = new Matriz();
+		testMode(m);
+		assertTrue(m.casillaMarcada(0, 2));
+		assertFalse(m.casillaMarcada(0, 0));
+	}
+	
+	@Test (expected= IllegalArgumentException.class)
+	public void casillaMarcadaPosicion1FueraDeRangoTest() {
+		Matriz m = new Matriz();
+		m.casillaMarcada(1283, 2);
+	}
+	
+	@Test (expected= IllegalArgumentException.class)
+	public void casillaMarcadaPosicion2FueraDeRangoTest() {
+		Matriz m = new Matriz();
+		m.casillaMarcada(1, 212);
+	}
+	
+	
+	@Test (expected= IllegalArgumentException.class)
+	public void casillaMarcadaPosicion1NegativaTest() {
+		Matriz m = new Matriz();
+		m.casillaMarcada(-2, 2);
+	}
+	
+	@Test (expected= IllegalArgumentException.class)
+	public void casillaMarcadaPosicion2NegativaTest() {
+		Matriz m = new Matriz();
+		m.casillaMarcada(2, -2);
 	}
 	
 	private void testMode(Matriz m) {
