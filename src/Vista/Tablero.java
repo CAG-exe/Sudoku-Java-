@@ -38,6 +38,13 @@ public class Tablero extends JPanel {
 				casilla.setFont(new Font("Tahoma", Font.PLAIN, 20));
 				valorValido(casilla,fila,col);
 				x+=40;
+				
+		        int arriba = (fila % 3 == 0) ? 3 : 1;
+		        int izq = (col % 3 == 0) ? 3 : 1;
+		        int abajo = (fila == 8) ? 3 : 1;
+		        int der = (col == 8) ? 3 : 1;
+
+		        casilla.setBorder(BorderFactory.createMatteBorder(arriba, izq, abajo, der, Color.BLACK));
 				add(casilla);
 				matrizGUI[fila][col] = casilla;
 				}
@@ -68,7 +75,6 @@ public class Tablero extends JPanel {
 					matrizGUI[fila][col].setEditable(false);
 					matrizGUI[fila][col].setEnabled(false);
 					matrizGUI[fila][col].setForeground(Color.BLACK); 
-					matrizGUI[fila][col].setBorder(BorderFactory.createLineBorder(Color.GRAY));
 					matrizGUI[fila][col].setDisabledTextColor(Color.BLACK);
 					matrizGUI[fila][col].setBackground(new Color(195, 215, 234));;
 			}
