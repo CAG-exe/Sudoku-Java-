@@ -21,7 +21,7 @@ public class Tablero extends JPanel {
 		setLayout(null);
 		Sudoku su = new Sudoku();
 		sudoku = su.getMatrizJuego();
-		sudoku.marcarCasillasConNumerosValidos(15);
+		sudoku.marcarCasillasConNumerosValidos(17);
 		matrizGUI = new JTextField[9][9]; 
 		su.resolverSudoku();
 		constructorDeMatriz();
