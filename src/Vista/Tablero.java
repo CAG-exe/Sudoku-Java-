@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.SwingConstants;
+
+import Controlador.Controlador;
 import Modelo.Matriz;
 import Modelo.Sudoku;
 
@@ -17,9 +19,9 @@ public class Tablero extends JPanel {
 	private JTextField[][]  matrizGUI;
 	private Matriz sudoku;;
 
-	public Tablero() {
+	public Tablero(Controlador controlador, Sudoku sudokuModelo) {
 		setLayout(null);
-		Sudoku su = new Sudoku();
+		Sudoku su = sudokuModelo;
 		sudoku = su.getMatrizJuego();
 		sudoku.marcarCasillasConNumerosValidos(17);
 		matrizGUI = new JTextField[9][9]; 
@@ -70,6 +72,7 @@ public class Tablero extends JPanel {
 				} catch (IllegalArgumentException a) {
 					//La celda fue borrada y trata de enviar un argumento vacio.
 				}
+				
 				
 			}
 		});

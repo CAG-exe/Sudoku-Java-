@@ -34,6 +34,7 @@ public class Sudoku {
 			solucionesDelSudokuJuego.add(copiaSolucion);
 			return true;
 		}
+		
 		if(columna == 9) {
 			fila += 1 ;
 			columna = 0;
@@ -56,5 +57,9 @@ public class Sudoku {
 		}
 		
 		return false;
+	}
+
+	public void actualizarValorDeLaCelda(int fila, int columna, int valor) {
+		sudokuJuego.setMatriz(fila, columna, valor);
 	}
 }
