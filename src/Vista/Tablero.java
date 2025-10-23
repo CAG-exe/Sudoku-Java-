@@ -63,7 +63,7 @@ public class Tablero extends JPanel {
 			public void keyTyped(KeyEvent e) {
 				int key = e.getKeyChar();
 				boolean numeros = key >= 48 && key <= 57;
-				if ((!numeros || jText.getText().trim().length() == 1) || (key == 48 && jText.getText().trim().length() == 0)){
+				if (!sudoku.esSeguro(fila,col,key-48) ||(!numeros || jText.getText().trim().length() == 1) || (key == 48 && jText.getText().trim().length() == 0)){
 					e.consume();
 				}
 			}
