@@ -63,9 +63,14 @@ public class Tablero extends JPanel {
 			public void keyTyped(KeyEvent e) {
 				int key = e.getKeyChar();
 				boolean numeros = key >= 48 && key <= 57;
-				if (!sudoku.esSeguro(fila,col,key-48) ||(!numeros || jText.getText().trim().length() == 1) || (key == 48 && jText.getText().trim().length() == 0)){
-					e.consume();
+				try {
+					if (!sudoku.esSeguro(fila,col,key-48) ||(!numeros || jText.getText().trim().length() == 1) || (key == 48 && jText.getText().trim().length() == 0)){
+						e.consume();
+					}
+				} catch (IllegalArgumentException a) {
+					//La celda fue borrada y trata de enviar un argumento vacio.
 				}
+				
 			}
 		});
 	}

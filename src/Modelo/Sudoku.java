@@ -34,7 +34,6 @@ public class Sudoku {
 			solucionesDelSudokuJuego.add(copiaSolucion);
 			return true;
 		}
-		System.out.println(fila + " " + columna);
 		if(columna == 9) {
 			fila += 1 ;
 			columna = 0;
@@ -45,7 +44,6 @@ public class Sudoku {
 		}
 		
 		for(int i = 1; i<10; i++) {
-			
 			if(sudokuSolucion.esSeguro(fila, columna, i)) {
 				sudokuSolucion.setMatriz(fila, columna, i);
 				if(encontrarTodasLasSolucionesRecursivo(sudokuSolucion, fila, columna + 1)) {
