@@ -21,14 +21,14 @@ public class Tablero extends JPanel {
 	private Controlador controlador;
 	private Sudoku sudokuModelo;
 
-	public Tablero(Controlador controlador, Sudoku sudokuModelo) {
+	public Tablero(Controlador controlador, Sudoku sudokuModelo, int cantidadValoresPrefijados) {
 		this.controlador = controlador;
 		this.sudokuModelo = sudokuModelo;
 
 		setLayout(null);
 		Sudoku su = sudokuModelo;
 		sudoku = su.getMatrizJuego();
-		sudoku.marcarCasillasConNumerosValidos(17);
+		sudoku.marcarCasillasConNumerosValidos(cantidadValoresPrefijados);
 		matrizGUI = new JTextField[9][9]; 
 		su.resolverSudoku();
 		constructorDeMatriz();

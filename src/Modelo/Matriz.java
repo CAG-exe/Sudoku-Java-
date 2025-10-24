@@ -115,8 +115,8 @@ public class Matriz {
 	}
 	
 	public void marcarCasillasConNumerosValidos(int num) {
-		if(num<15 || num>40) {
-			throw new IllegalArgumentException("numero de casillas no valido, tiene que estar entre 15 o 40");
+		if(num<1 || num>40) {
+			throw new IllegalArgumentException("numero de casillas no valido, tiene que estar entre 1 o 40");
 		}
 		for(int i=0;i<num;i++){
 		buscarCasillaYmarcar();

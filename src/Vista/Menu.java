@@ -20,8 +20,6 @@ import Modelo.Sudoku;
 public class Menu{
 	
 	protected JButton ComoJugarButton;
-	private Color BotonBase;
-	private Color BotonHover;
 	private JFrame frame;
 	private Tablero tablero;
 	private Controlador controlador;
@@ -50,8 +48,9 @@ public class Menu{
 		frame.getContentPane().setBackground(new Color(206, 175, 174));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(null);
-		frame.setVisible(true);
 		frame.setTitle("Sudoku-Menu");
+		this.sudoku = new Sudoku();
+		this.controlador = new Controlador();
 
 		JButton generaSudoku = new JButton("Generar");
 		generaSudoku.setFocusable(false);
@@ -70,7 +69,7 @@ public class Menu{
 				if (texto != null) {
 					int cantidad = Integer.parseInt(texto.trim());
 					if (cantidad >= 1 && cantidad <= 81) {
-						tablero = new Tablero(controlador, sudoku);
+						new InterfazFrame(controlador, sudoku, cantidad);
 					}
 					else {
 						JOptionPane.showMessageDialog(frame, 

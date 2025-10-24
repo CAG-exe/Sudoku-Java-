@@ -18,15 +18,17 @@ public class InterfazFrame {
 	private Tablero tablero;
 	private Controlador controlador;
 	private Sudoku sudokuModelo;
+	private int cantidadValoresPrefijados;
 	
 
-	public InterfazFrame(Controlador controlador, Sudoku sudokuModelo) {
+	public InterfazFrame(Controlador controlador, Sudoku sudokuModelo,int cantidadValoresPrefijados) {
 		this.controlador = controlador;
 		this.sudokuModelo = sudokuModelo;
-		initialize();
+		this.cantidadValoresPrefijados = cantidadValoresPrefijados;
+		inicializar();
 	}
 	
-	private void initialize() {
+	private void inicializar() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,7 +37,7 @@ public class InterfazFrame {
 		
 		
 		/// para que muestre el tablero de una
-		tablero = new Tablero(controlador, sudokuModelo);
+		tablero = new Tablero(controlador, sudokuModelo, cantidadValoresPrefijados);
 		frame.setContentPane(tablero);
 		
 		JButton generaSudoku = new JButton("Generar Sudoku");
@@ -55,8 +57,7 @@ public class InterfazFrame {
 				if (texto != null) {
 					int cantidad = Integer.parseInt(texto.trim());
 					if (cantidad >= 1 && cantidad <= 81) {
-						frame.remove(tablero);
-						tablero = new Tablero(controlador, sudokuModelo);
+						tablero = new Tablero(controlador, sudokuModelo, cantidad);
 					}
 					else {
 						JOptionPane.showMessageDialog(frame, 
