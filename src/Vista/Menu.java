@@ -49,8 +49,8 @@ public class Menu{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(null);
 		frame.setTitle("Sudoku-Menu");
-		this.sudoku = new Sudoku();
-		this.controlador = new Controlador();
+		//this.sudoku = new Sudoku();
+		//this.controlador = new Controlador();
 
 		JButton generaSudoku = new JButton("Generar");
 		generaSudoku.setFocusable(false);
@@ -69,6 +69,8 @@ public class Menu{
 				if (texto != null) {
 					int cantidad = Integer.parseInt(texto.trim());
 					if (cantidad >= 1 && cantidad <= 81) {
+						Sudoku sudoku = new Sudoku();
+						Controlador controlador = new Controlador();
 						new InterfazFrame(controlador, sudoku, cantidad);
 					}
 					else {
