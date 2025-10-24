@@ -27,7 +27,7 @@ public class Tablero extends JPanel {
 	private Color colorFondoCasillas = Color.WHITE;
 	private Color colorFondoResaltado = new Color(225, 245, 255);
 
-	public Tablero(Controlador controlador, Sudoku sudokuModelo) {
+	public Tablero(Controlador controlador, Sudoku sudokuModelo, int cantidadValoresPrefijados) {
 		this.controlador = controlador;
 		this.sudokuModelo = sudokuModelo;
 		controlador.setTablero(this);
@@ -36,7 +36,7 @@ public class Tablero extends JPanel {
 		setLayout(null);
 		Sudoku su = sudokuModelo;
 		sudoku = su.getMatrizJuego();
-		sudoku.marcarCasillasConNumerosValidos(17);
+		sudoku.marcarCasillasConNumerosValidos(cantidadValoresPrefijados);
 		matrizGUI = new JTextField[9][9]; 
 		constructorDeMatriz();
 		marcarTablero();
