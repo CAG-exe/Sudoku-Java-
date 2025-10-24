@@ -5,6 +5,9 @@ import javax.swing.JTextField;
 import javax.swing.BorderFactory;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.SwingConstants;
@@ -20,17 +23,21 @@ public class Tablero extends JPanel {
 	private Matriz sudoku;;
 	private Controlador controlador;
 	private Sudoku sudokuModelo;
+	private Color colorFondoCasillasPrefijadas = new Color(195, 215, 234);
+	private Color colorFondoCasillas = Color.WHITE;
+	private Color colorFondoResaltado = new Color(225, 245, 255);
 
 	public Tablero(Controlador controlador, Sudoku sudokuModelo) {
 		this.controlador = controlador;
 		this.sudokuModelo = sudokuModelo;
+		controlador.setTablero(this);
+		
 
 		setLayout(null);
 		Sudoku su = sudokuModelo;
 		sudoku = su.getMatrizJuego();
 		sudoku.marcarCasillasConNumerosValidos(17);
 		matrizGUI = new JTextField[9][9]; 
-		su.resolverSudoku();
 		constructorDeMatriz();
 		marcarTablero();
 		setBackground(new Color(206, 175, 174));
@@ -48,6 +55,8 @@ public class Tablero extends JPanel {
 				casilla.setHorizontalAlignment(SwingConstants.CENTER);
 				casilla.setFont(new Font("Tahoma", Font.PLAIN, 20));
 				valorValido(casilla,fila,col);
+				celdaEsSelecionada(fila, col, casilla);
+				
 				x+=40;
 				
 		        int arriba = (fila % 3 == 0) ? 3 : 1;
@@ -64,6 +73,21 @@ public class Tablero extends JPanel {
 		
 		}
 	}
+	
+	private void celdaEsSelecionada(int fila, int col, JTextField casilla) {
+		casilla.addFocusListener(new FocusAdapter() {
+		    @Override
+		    public void focusGained(FocusEvent e) {
+		    	controlador.celdaSeleccionada(fila, col);
+		    }
+
+		    @Override
+		    public void focusLost(FocusEvent e) {
+		    	controlador.celdaDeseleccionada();
+		    }
+		});
+	}
+	
 	private void valorValido(JTextField jText,int fila,int col) {
 		jText.addKeyListener(new KeyAdapter() {
 			@Override
@@ -76,6 +100,20 @@ public class Tablero extends JPanel {
 		);
 	}
 	
+	FocusListener miListenerDeFoco = new FocusListener() {
+        @Override
+        public void focusGained(FocusEvent e) {
+            System.out.println("El foco se ganó");
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            System.out.println("El foco se perdió");
+        }
+    };
+    
+    
+	
 	private void marcarTablero() {
 		int[][] copia = sudoku.clonar();
 		for(int fila=0 ; fila<9 ; fila++) {
@@ -86,10 +124,51 @@ public class Tablero extends JPanel {
 					matrizGUI[fila][col].setEnabled(false);
 					matrizGUI[fila][col].setForeground(Color.BLACK); 
 					matrizGUI[fila][col].setDisabledTextColor(Color.BLACK);
-					matrizGUI[fila][col].setBackground(new Color(195, 215, 234));;
+					matrizGUI[fila][col].setBackground(colorFondoCasillasPrefijadas);;
 			}
 		}
 	}
+	}
+	
+	public void restablecerColorDeFondo() {
+		for (int fila = 0; fila < 9; fila++) {
+			for (int col = 0; col < 9; col++) {
+				if (!esUnaCasillaPrefijada(fila, col)) {
+					matrizGUI[fila][col].setBackground(colorFondoCasillas);
+				}
+			}
+		}
+	}
+	
+	
+	public void colorearFila(int fila) {
+		for (int col = 0; col < 9; col++) {
+			if (!esUnaCasillaPrefijada(fila, col))
+				matrizGUI[fila][col].setBackground(colorFondoResaltado);
+		}
+	}
+	
+	public void colorearColumna(int col) {
+        for (int fila = 0; fila < 9; fila++) {
+        	if (!esUnaCasillaPrefijada(fila, col))
+        		matrizGUI[fila][col].setBackground(colorFondoResaltado);
+        }
+	}
+	
+	public void colorearCuadrante(int fila, int col) {
+		int filaInicio = (fila / 3) * 3;
+		int colInicio = (col / 3) * 3;
+
+		for (int i = filaInicio; i < filaInicio + 3; i++) {
+			for (int j = colInicio; j < colInicio + 3; j++) {
+				if (!esUnaCasillaPrefijada(i, j))
+					matrizGUI[i][j].setBackground(colorFondoResaltado);
+			}
+		}
+	}
+	
+	private boolean esUnaCasillaPrefijada(int fila, int col) {
+		return matrizGUI[fila][col].getBackground().equals(colorFondoCasillasPrefijadas);
 	}
 }
 

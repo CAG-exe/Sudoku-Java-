@@ -10,6 +10,7 @@ import java.util.stream.IntStream;
 
 public class Matriz {
 	private int[][] sudoku;
+	private int cantDeValoresPrefijados;
 	
 	public Matriz() {
 		sudoku= new int[9][9];
@@ -115,11 +116,12 @@ public class Matriz {
 	}
 	
 	public void marcarCasillasConNumerosValidos(int num) {
+		cantDeValoresPrefijados = num;
 		if(num<15 || num>40) {
 			throw new IllegalArgumentException("numero de casillas no valido, tiene que estar entre 15 o 40");
 		}
 		for(int i=0;i<num;i++){
-		buscarCasillaYmarcar();
+			buscarCasillaYmarcar();
 		}
 	}
 
@@ -152,6 +154,10 @@ public class Matriz {
 			return false;
 		
 		return true;
+	 }
+	 
+	 public int getCantDeValoresPrefijados() {
+		 return cantDeValoresPrefijados;
 	 }
 	
 }

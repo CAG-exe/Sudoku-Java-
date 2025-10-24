@@ -23,10 +23,16 @@ public class Sudoku {
 		 sudokuSolucion.setMatrizClonada(matrizSudokuClonada);
 		 int fila = 0;
 		 int columna = 0;
-		 return encontrarTodasLasSolucionesRecursivo(sudokuSolucion,fila,columna);
+		 if(sudokuJuego.getCantDeValoresPrefijados() >=17) {
+				return encontrarUnaSolucionRecursivo(sudokuSolucion, fila, columna);
+			} else {
+				encontrarTodasLasSolucionesRecursivo(sudokuSolucion, fila, columna);
+				return solucionesDelSudokuJuego.size() > 0;
+		 }
+	
 	 }
 
-	private boolean encontrarTodasLasSolucionesRecursivo(Matriz sudokuSolucion, int fila, int columna) {
+	private boolean encontrarUnaSolucionRecursivo(Matriz sudokuSolucion, int fila, int columna) {
 		if(sudokuSolucion.matrizCompleta()) {
 			Matriz copiaSolucion = new Matriz();
 			int[][] matrizSudokuClonada = sudokuSolucion.clonar();
@@ -41,13 +47,13 @@ public class Sudoku {
 		}
 		
 		if(sudokuSolucion.casillaMarcada(fila, columna)) {
-			return encontrarTodasLasSolucionesRecursivo(sudokuSolucion, fila, columna + 1);
+			return encontrarUnaSolucionRecursivo(sudokuSolucion, fila, columna + 1);
 		}
 		
 		for(int i = 1; i<10; i++) {
 			if(sudokuSolucion.esSeguro(fila, columna, i)) {
 				sudokuSolucion.setMatriz(fila, columna, i);
-				if(encontrarTodasLasSolucionesRecursivo(sudokuSolucion, fila, columna + 1)) {
+				if(encontrarUnaSolucionRecursivo(sudokuSolucion, fila, columna + 1)) {
 					return true;
 				}
 				
@@ -57,6 +63,35 @@ public class Sudoku {
 		}
 		
 		return false;
+	}
+	
+	private void encontrarTodasLasSolucionesRecursivo(Matriz sudokuSolucion, int fila, int columna) {
+		if(sudokuSolucion.matrizCompleta()) {
+			Matriz copiaSolucion = new Matriz();
+			int[][] matrizSudokuClonada = sudokuSolucion.clonar();
+			copiaSolucion.setMatrizClonada(matrizSudokuClonada);
+			solucionesDelSudokuJuego.add(copiaSolucion);
+			return;
+		}
+		
+		if(columna == 9) {
+			fila += 1 ;
+			columna = 0;
+		}
+		
+		if(sudokuSolucion.casillaMarcada(fila, columna)) {
+			encontrarTodasLasSolucionesRecursivo(sudokuSolucion, fila, columna + 1);
+		} else {
+			for(int i = 1; i<10; i++) {
+				if(sudokuSolucion.esSeguro(fila, columna, i)) {
+					sudokuSolucion.setMatriz(fila, columna, i);
+					encontrarTodasLasSolucionesRecursivo(sudokuSolucion, fila, columna + 1);
+					
+					sudokuSolucion.setMatriz(fila, columna, 0);
+				}
+				
+			}
+		}
 	}
 
 	public void actualizarValorDeLaCelda(int fila, int columna, int valor) {
