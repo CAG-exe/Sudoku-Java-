@@ -14,7 +14,7 @@ public class Main {
 				try {
 					Controlador controlador = new Controlador();
 					Sudoku sudokuModelo = new Sudoku();
-					InterfazFrame window = new InterfazFrame(controlador, sudokuModelo);
+					InterfazFrame window = new InterfazFrame(controlador, sudokuModelo, 17);
 					controlador.setSudoku(sudokuModelo);
 					controlador.setInterfazFrame(window);
 					
