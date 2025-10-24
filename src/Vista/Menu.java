@@ -81,11 +81,11 @@ public class Menu{
 				
 			}
 	});
-		JLabel logoSudoku = new JLabel("");
-		ImageIcon Logo = new ImageIcon(getClass().getResource("/media/sudoku.png"));
-		logoSudoku.setIcon(Logo);
-		logoSudoku.setBounds(150, 41, 500, 400);
-		frame.add(logoSudoku);
+		//JLabel logoSudoku = new JLabel("");
+		//ImageIcon Logo = new ImageIcon(getClass().getResource("/media/sudoku.png"));
+		//logoSudoku.setIcon(Logo);
+		//logoSudoku.setBounds(150, 41, 500, 400);
+		//frame.add(logoSudoku);
         
 	}
 	
