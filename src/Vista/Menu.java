@@ -49,8 +49,6 @@ public class Menu{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(null);
 		frame.setTitle("Sudoku-Menu");
-		//this.sudoku = new Sudoku();
-		//this.controlador = new Controlador();
 
 		JButton generaSudoku = new JButton("Generar");
 		generaSudoku.setFocusable(false);

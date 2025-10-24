@@ -40,6 +40,31 @@ public class InterfazFrame {
 		tablero = new Tablero(controlador, sudokuModelo, cantidadValoresPrefijados);
 		frame.setContentPane(tablero);
 		
+		JButton solucionComprobar = new JButton("Comprobar solución");
+		solucionComprobar.setFocusable(false);
+		solucionComprobar.setFont(new Font("Arial", Font.BOLD, 14));
+		solucionComprobar.setBounds(300, 497, 200, 50);
+		frame.add(solucionComprobar);
+		solucionComprobar.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        boolean tieneSolucion = sudokuModelo.resolverSudoku();
+		        
+		        if (tieneSolucion) {
+					JOptionPane.showMessageDialog(frame, 
+							"Tiene solucion", 
+							"", 
+							JOptionPane.INFORMATION_MESSAGE);
+		        } else {
+					JOptionPane.showMessageDialog(frame, 
+							"No tiene solucion", 
+							"", 
+							JOptionPane.ERROR_MESSAGE);
+		        }
+		        
+		    }
+		});
+		
 		JButton generaSudoku = new JButton("Generar Sudoku");
 		generaSudoku.setFocusable(false);
 		generaSudoku.setFont(new Font("Arial", Font.BOLD, 14));
