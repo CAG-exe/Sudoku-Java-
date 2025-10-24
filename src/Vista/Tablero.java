@@ -18,8 +18,13 @@ public class Tablero extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField[][]  matrizGUI;
 	private Matriz sudoku;;
+	private Controlador controlador;
+	private Sudoku sudokuModelo;
 
 	public Tablero(Controlador controlador, Sudoku sudokuModelo) {
+		this.controlador = controlador;
+		this.sudokuModelo = sudokuModelo;
+
 		setLayout(null);
 		Sudoku su = sudokuModelo;
 		sudoku = su.getMatrizJuego();
@@ -63,19 +68,12 @@ public class Tablero extends JPanel {
 		jText.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				int key = e.getKeyChar();
-				boolean numeros = key >= 48 && key <= 57;
-				try {
-					if (!sudoku.esSeguro(fila,col,key-48) ||(!numeros || jText.getText().trim().length() == 1) || (key == 48 && jText.getText().trim().length() == 0)){
-						e.consume();
-					}
-				} catch (IllegalArgumentException a) {
-					//La celda fue borrada y trata de enviar un argumento vacio.
-				}
-				
+				controlador.celdaActualizada(jText, fila, col, e);
 				
 			}
-		});
+			
+		}
+		);
 	}
 	
 	private void marcarTablero() {

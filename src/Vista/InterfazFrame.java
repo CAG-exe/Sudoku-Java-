@@ -19,9 +19,6 @@ public class InterfazFrame {
 	private Controlador controlador;
 	private Sudoku sudokuModelo;
 	
-	public static void main(String[] args) {
-		
-	}
 
 	public InterfazFrame(Controlador controlador, Sudoku sudokuModelo) {
 		this.controlador = controlador;
@@ -30,7 +27,6 @@ public class InterfazFrame {
 	}
 	
 	private void initialize() {
-		frame.setVisible(true);
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

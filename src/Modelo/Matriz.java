@@ -34,8 +34,9 @@ public class Matriz {
 	public boolean esSeguro(int x, int y, int valor) {
 		if(valor<1 || valor >9)
 			throw new IllegalArgumentException("el valor tiene que estar entre 1 y 9");
-		if(sudoku[x][y] == valor || posicionValidaParaValor(x,y,valor))	
+		if(sudoku[x][y] == valor || posicionValidaParaValor(x,y,valor)) {
 			return false;
+		}
 		return true;
 	}
 
@@ -44,9 +45,20 @@ public class Matriz {
 			throw new IllegalArgumentException("Los parametros X / Y son invalidos");
 		}
 		sudoku[x][y] = valor;
+		
 		return;
 	}
 	
+	public void mostrarActual() {
+		for (int fila = 0; fila < sudoku.length; fila++) {
+			for (int col = 0; col < sudoku.length; col++) {
+				System.out.print(sudoku[fila][col] + " ");
+			}
+			System.out.println();
+		}
+		
+	}
+
 	public boolean posicionValidaParaValor(int x, int y, int valor) {
 		return verficacionPorfila(x,y,valor) || verificacionPorColumna(x,y,valor) || verificacionPorCuadrante(x,y,valor);
 	}

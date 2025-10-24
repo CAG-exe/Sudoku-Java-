@@ -61,5 +61,15 @@ public class Sudoku {
 
 	public void actualizarValorDeLaCelda(int fila, int columna, int valor) {
 		sudokuJuego.setMatriz(fila, columna, valor);
+		sudokuJuego.mostrarActual();
+	}
+	
+	public void estaCompleto() {
+		if(sudokuJuego.matrizCompleta())
+			System.out.println("Sudoku completado");
+	}
+	
+	public boolean esSeguro(int fila, int columna, int valor) {
+		return sudokuJuego.esSeguro(fila, columna, valor);
 	}
 }
