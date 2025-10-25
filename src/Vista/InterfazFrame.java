@@ -32,7 +32,7 @@ public class InterfazFrame {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setLayout(null);
+		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
 		
 		
@@ -44,7 +44,7 @@ public class InterfazFrame {
 		solucionComprobar.setFocusable(false);
 		solucionComprobar.setFont(new Font("Arial", Font.BOLD, 14));
 		solucionComprobar.setBounds(300, 497, 200, 50);
-		frame.add(solucionComprobar);
+		frame.getContentPane().add(solucionComprobar);
 		solucionComprobar.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
@@ -61,15 +61,24 @@ public class InterfazFrame {
 							"", 
 							JOptionPane.ERROR_MESSAGE);
 		        }
-		        
 		    }
 		});
+		
+		
+		JButton solucionMostrar = new JButton("Mostrar solución");
+		solucionMostrar.addActionListener(e -> {
+			controlador.mostrarSolucionIndividualEnElTablero();
+		});
+		solucionMostrar.setFocusable(false);
+		solucionMostrar.setFont(new Font("Arial", Font.BOLD, 14));
+		solucionMostrar.setBounds(20, 497, 200, 50);
+		frame.getContentPane().add(solucionMostrar);
 		
 		JButton generaSudoku = new JButton("Generar Sudoku");
 		generaSudoku.setFocusable(false);
 		generaSudoku.setFont(new Font("Arial", Font.BOLD, 14));
 		generaSudoku.setBounds(600, 497, 150, 50);
-		frame.add(generaSudoku);
+		frame.getContentPane().add(generaSudoku);
 		generaSudoku.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

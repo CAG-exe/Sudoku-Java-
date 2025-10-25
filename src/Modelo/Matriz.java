@@ -49,16 +49,6 @@ public class Matriz {
 		
 		return;
 	}
-	
-	public void mostrarActual() {
-		for (int fila = 0; fila < sudoku.length; fila++) {
-			for (int col = 0; col < sudoku.length; col++) {
-				System.out.print(sudoku[fila][col] + " ");
-			}
-			System.out.println();
-		}
-		
-	}
 
 	public boolean posicionValidaParaValor(int x, int y, int valor) {
 		return verficacionPorfila(x,y,valor) || verificacionPorColumna(x,y,valor) || verificacionPorCuadrante(x,y,valor);
@@ -116,13 +106,17 @@ public class Matriz {
 	}
 	
 	public void marcarCasillasConNumerosValidos(int num) {
-		cantDeValoresPrefijados = num;
+		setCantDeValoresPrefijados(num);
 		if(num<15 || num>40) {
 			throw new IllegalArgumentException("numero de casillas no valido, tiene que estar entre 15 o 40");
 		}
 		for(int i=0;i<num;i++){
 			buscarCasillaYmarcar();
 		}
+	}
+
+	void setCantDeValoresPrefijados(int num) {
+		cantDeValoresPrefijados = num;
 	}
 
 	private void buscarCasillaYmarcar() {

@@ -170,5 +170,22 @@ public class Tablero extends JPanel {
 	private boolean esUnaCasillaPrefijada(int fila, int col) {
 		return matrizGUI[fila][col].getBackground().equals(colorFondoCasillasPrefijadas);
 	}
+	
+	public void actualizarTableroConLaSolucion(int[][] matrizSolucion) {
+		for (int fila = 0; fila < 9; fila++) {
+			for (int col = 0; col < 9; col++) {
+				matrizGUI[fila][col].setText(matrizSolucion[fila][col] + "");
+			}
+		}
+	}
+	
+	public void bloquearEdicionDeCasillas() {
+		for (int fila = 0; fila < 9; fila++) {
+			for (int col = 0; col < 9; col++) {
+				matrizGUI[fila][col].setEditable(false);
+				matrizGUI[fila][col].setEnabled(false);
+			}
+		}
+	}
 }
 

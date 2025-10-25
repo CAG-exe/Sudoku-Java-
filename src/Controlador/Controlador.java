@@ -31,7 +31,7 @@ public class Controlador {
 	}
 	
 	public void actualizarValorDeCeldaEnModelo(int fila, int columna, int valor) {
-		sudokuModelo.actualizarValorDeLaCelda(fila, columna, valor);
+		sudokuModelo.setValorDeLaCelda(fila, columna, valor);
 		sudokuModelo.estaCompleto();
 	}
 	
@@ -70,6 +70,12 @@ public class Controlador {
 
 	private boolean elNumeroEsCero(int key) {
 		return key == 48;
+	}
+	
+	public void mostrarSolucionIndividualEnElTablero() {
+		sudokuModelo.resolverSudoku();
+	    tablero.actualizarTableroConLaSolucion(sudokuModelo.getUnicaSolucion());
+	    tablero.bloquearEdicionDeCasillas();
 	}
 	
 }

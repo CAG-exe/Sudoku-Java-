@@ -94,17 +94,19 @@ public class Sudoku {
 		}
 	}
 
-	public void actualizarValorDeLaCelda(int fila, int columna, int valor) {
+	public void setValorDeLaCelda(int fila, int columna, int valor) {
 		sudokuJuego.setMatriz(fila, columna, valor);
-		sudokuJuego.mostrarActual();
-	}
-	
-	public void estaCompleto() {
-		if(sudokuJuego.matrizCompleta())
-			System.out.println("Sudoku completado");
 	}
 	
 	public boolean esSeguro(int fila, int columna, int valor) {
 		return sudokuJuego.esSeguro(fila, columna, valor);
+	}
+
+	public int[][] getUnicaSolucion() {
+		return solucionesDelSudokuJuego.get(0).clonar();
+	}
+
+	public void estaCompleto() {
+		
 	}
 }

@@ -221,5 +221,11 @@ public class MatrizTest {
 		 m.setMatrizClonada(Mtest);
 	}
 	
+	public void getCantDeValoresPrefijadosTest() {
+		Matriz m = new Matriz();
+		int esperado = 25;
+		m.marcarCasillasConNumerosValidos(25);
+		assertEquals(esperado, m.getCantDeValoresPrefijados());
+	}
 	
 }
