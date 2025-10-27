@@ -112,4 +112,8 @@ public class Sudoku {
 	public void estaCompleto() {
 		
 	}
+
+	public List<Matriz> getSoluciones() {
+		return solucionesDelSudokuJuego;
+	}
 }

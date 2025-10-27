@@ -78,4 +78,9 @@ public class Controlador {
 	    tablero.bloquearEdicionDeCasillas();
 	}
 	
+	public void mostrarSolucionIndividualEnElTablero(Tablero tabla, int[][] solucion) {
+		tabla.actualizarTableroConLaSolucion(solucion);
+		tabla.bloquearEdicionDeCasillas();
+	}
+	
 }
