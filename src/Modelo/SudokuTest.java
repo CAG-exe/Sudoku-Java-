@@ -71,4 +71,9 @@ public class SudokuTest {
 		sudoku.setValorDeLaCelda(0, 2, 4);
 		assertEquals(4, m.getValorEnMatriz(0,2));
 	}
+	@Test(expected = IndexOutOfBoundsException.class)
+    public void testGetUnicaSolucion_SinSoluciones() {
+        Sudoku sudoku = new Sudoku();
+        sudoku.getUnicaSolucion(); 
+    }
 }
