@@ -91,8 +91,11 @@ public class InterfazFrame {
 				);
 				if (texto != null) {
 					int cantidad = Integer.parseInt(texto.trim());
-					if (cantidad >= 1 && cantidad <= 81) {
-						tablero = new Tablero(controlador, sudokuModelo, cantidad);
+					if (cantidad >= 15 && cantidad <= 40) {
+						Sudoku sudoku = new Sudoku();
+						Controlador controlador = new Controlador();
+						new InterfazFrame(controlador, sudoku, cantidad);
+						frame.setVisible(false);
 					}
 					else {
 						JOptionPane.showMessageDialog(frame, 
