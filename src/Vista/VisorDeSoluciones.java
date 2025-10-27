@@ -119,7 +119,7 @@ public class VisorDeSoluciones extends JFrame {
 
 		
 		
-		this.tablero = new Tablero(controlador, sudokuModelo, 15);
+		this.tablero = new Tablero(controlador, sudokuModelo, 20);
 		tablero.bloquearEdicionDeCasillas();
 		tablero.setBounds(-111, 0, 724, 583);
 		panelDeTablero.add(tablero);

@@ -106,7 +106,12 @@ public class Sudoku {
 	}
 
 	public int[][] getUnicaSolucion() {
-		return solucionesDelSudokuJuego.get(0).clonar();
+		try {
+			return solucionesDelSudokuJuego.get(0).clonar();
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("No hay soluciones");
+		}
+		
 	}
 
 	public void estaCompleto() {
