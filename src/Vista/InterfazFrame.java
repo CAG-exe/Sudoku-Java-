@@ -25,6 +25,7 @@ public class InterfazFrame {
 		this.controlador = controlador;
 		this.sudokuModelo = sudokuModelo;
 		this.cantidadValoresPrefijados = cantidadValoresPrefijados;
+		controlador.setSudoku(sudokuModelo);
 		inicializar();
 	}
 	

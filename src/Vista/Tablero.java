@@ -122,7 +122,7 @@ public class Tablero extends JPanel {
 					matrizGUI[fila][col].setEnabled(false);
 					matrizGUI[fila][col].setForeground(Color.BLACK); 
 					matrizGUI[fila][col].setDisabledTextColor(Color.BLACK);
-					matrizGUI[fila][col].setBackground(colorFondoCasillasPrefijadas);;
+					matrizGUI[fila][col].setBackground(colorFondoCasillasPrefijadas);
 			}
 		}
 	}
