@@ -109,9 +109,8 @@ public class Sudoku {
 		try {
 			return solucionesDelSudokuJuego.get(0).clonar();
 		} catch (IndexOutOfBoundsException e) {
-			System.out.println("No hay soluciones");
+			throw new IllegalStateException("No hay soluciones disponibles.");
 		}
-		
 	}
 
 	public void estaCompleto() {
