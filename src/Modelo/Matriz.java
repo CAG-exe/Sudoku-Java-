@@ -10,7 +10,10 @@ import java.util.stream.IntStream;
 
 public class Matriz {
 	private int[][] sudoku;
+	private int[][] sudokuConValoresPrefijados;
 	private int cantDeValoresPrefijados;
+	private int maximoValorDePrefijados = 40;
+	private int minimoValorDePrefijados = 15;
 	
 	public Matriz() {
 		sudoku= new int[9][9];
@@ -107,16 +110,21 @@ public class Matriz {
 	
 	public void marcarCasillasConNumerosValidos(int num) {
 		setCantDeValoresPrefijados(num);
-		if(num<15 || num>40) {
+		if(num<minimoValorDePrefijados || num>maximoValorDePrefijados) {
 			throw new IllegalArgumentException("numero de casillas no valido, tiene que estar entre 15 o 40");
 		}
 		for(int i=0;i<num;i++){
 			buscarCasillaYmarcar();
 		}
+		sudokuConValoresPrefijados = clonar();
 	}
 
 	void setCantDeValoresPrefijados(int num) {
 		cantDeValoresPrefijados = num;
+	}
+	
+	public int[][] getMatrizConValoresPrefijados() {
+		return sudokuConValoresPrefijados;
 	}
 
 	private void buscarCasillaYmarcar() {

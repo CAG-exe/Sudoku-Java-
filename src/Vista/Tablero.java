@@ -40,9 +40,7 @@ public class Tablero extends JPanel {
 		matrizGUI = new JTextField[9][9]; 
 		constructorDeMatriz();
 		marcarTablero();
-		setBackground(new Color(206, 175, 174));
-		
-		
+		setBackground(new Color(240, 240, 240));
 	}
 	
 	private void constructorDeMatriz() {

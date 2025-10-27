@@ -7,7 +7,6 @@ public class Sudoku {
 	private Matriz sudokuJuego;
 	private List<Matriz> solucionesDelSudokuJuego;
 	
-	
 	public Sudoku() {
 		sudokuJuego = new Matriz();
 		solucionesDelSudokuJuego = new ArrayList<Matriz>();
@@ -15,6 +14,10 @@ public class Sudoku {
 	
 	public Matriz getMatrizJuego() {
 		return sudokuJuego;
+	}
+	
+	public int[][] getMatrizDeSudokuConValoresPrefijados() {
+		return sudokuJuego.getMatrizConValoresPrefijados();
 	}
 	
 	public boolean resolverSudoku() {

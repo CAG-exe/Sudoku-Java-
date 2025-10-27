@@ -34,6 +34,7 @@ public class InterfazFrame {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
+		frame.setLocationRelativeTo(null);
 		
 		
 		/// para que muestre el tablero de una
