@@ -26,6 +26,7 @@ public class Tablero extends JPanel {
 	private Color colorFondoCasillasPrefijadas = new Color(195, 215, 234);
 	private Color colorFondoCasillas = Color.WHITE;
 	private Color colorFondoResaltado = new Color(225, 245, 255);
+	private Color colorNumeroSolucion = new Color(204, 4, 32);
 
 	public Tablero(Controlador controlador, Sudoku sudokuModelo, int cantidadValoresPrefijados) {
 		this.controlador = controlador;
@@ -170,9 +171,13 @@ public class Tablero extends JPanel {
 	}
 	
 	public void actualizarTableroConLaSolucion(int[][] matrizSolucion) {
+		int[][] valoresPrefijados = sudokuModelo.getMatrizDeSudokuConValoresPrefijados();
 		for (int fila = 0; fila < 9; fila++) {
 			for (int col = 0; col < 9; col++) {
 				matrizGUI[fila][col].setText(matrizSolucion[fila][col] + "");
+				if (valoresPrefijados[fila][col] == 0) {
+					matrizGUI[fila][col].setForeground(colorNumeroSolucion);
+				}
 			}
 		}
 	}
@@ -181,7 +186,7 @@ public class Tablero extends JPanel {
 		for (int fila = 0; fila < 9; fila++) {
 			for (int col = 0; col < 9; col++) {
 				matrizGUI[fila][col].setEditable(false);
-				matrizGUI[fila][col].setEnabled(false);
+				matrizGUI[fila][col].setEnabled(true);
 			}
 		}
 	}
