@@ -66,7 +66,7 @@ public class Menu{
 				);
 				if (texto != null) {
 					int cantidad = Integer.parseInt(texto.trim());
-					if (cantidad >= 1 && cantidad <= 81) {
+					if (cantidad >= 15 && cantidad <= 40) {
 						Sudoku sudoku = new Sudoku();
 						Controlador controlador = new Controlador();
 						new InterfazFrame(controlador, sudoku, cantidad);
