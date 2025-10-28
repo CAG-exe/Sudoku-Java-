@@ -16,8 +16,11 @@ public class SimulacionBusqueda extends SwingWorker<List<Matriz>, List<Matriz>> 
 	private JProgressBar barra;
 	private Sudoku sudoku;
 	private JLabel texto;
+	private List<Matriz> soluciones;
+	private VisorDeSoluciones visorDeSoluciones;
 
-	public SimulacionBusqueda(JProgressBar barra, Sudoku sudoku, JLabel texto) {
+	public SimulacionBusqueda(JProgressBar barra, Sudoku sudoku, JLabel texto, VisorDeSoluciones visorDeSoluciones) {
+		this.visorDeSoluciones = visorDeSoluciones;
 		this.barra = barra;
 		this.sudoku = sudoku;
 		this.texto = texto;
@@ -27,13 +30,14 @@ public class SimulacionBusqueda extends SwingWorker<List<Matriz>, List<Matriz>> 
 	protected List<Matriz> doInBackground() throws Exception {
 		barra.setIndeterminate(true);
 		sudoku.resolverSudoku();
-		List<Matriz> soluciones = sudoku.getSoluciones();
+		this.soluciones = sudoku.getSoluciones();
 		return soluciones;
 	}
 	@Override
 	public void done() {
 		barra.setIndeterminate(false);
 		this.texto.setText("YA FUE ENCONTRADO");
+		visorDeSoluciones.crearBotonesDeSoluciones(soluciones);
 	}
 
 }

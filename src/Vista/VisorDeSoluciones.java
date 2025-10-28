@@ -16,6 +16,8 @@ import Modelo.Sudoku;
 import javax.swing.JProgressBar;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+
+import javax.script.ScriptContext;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -39,6 +41,8 @@ public class VisorDeSoluciones extends JFrame {
 	private Controlador controlador;
 	private Tablero tablero;
 	private JLabel TextBuscando;
+	private JScrollPane scrollPaneDeBotones;
+	private JPanel panel_1;
 
 	/**
 	 * Launch the application.
@@ -69,6 +73,7 @@ public class VisorDeSoluciones extends JFrame {
 	 * @throws Exception 
 	 */
 	public VisorDeSoluciones(Controlador controlador, Sudoku sudokuModelo) throws Exception {
+		setResizable(false);
 		this.sudoku = sudokuModelo;
 		this.controlador = controlador;
 		
@@ -119,21 +124,31 @@ public class VisorDeSoluciones extends JFrame {
 
 		
 		
-		this.tablero = new Tablero(controlador, sudokuModelo, 20);
+		this.tablero = new Tablero(controlador, sudokuModelo, 17);
 		tablero.bloquearEdicionDeCasillas();
 		tablero.setBounds(-111, 0, 724, 583);
 		panelDeTablero.add(tablero);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 75, 367, 508);
-		contentPane.add(scrollPane);
 		
+		this.scrollPaneDeBotones = new JScrollPane();
+		contentPane.add(scrollPaneDeBotones);
+		scrollPaneDeBotones.setBounds(10, 75, 367, 508);
+		scrollPaneDeBotones.getVerticalScrollBar().setUnitIncrement(16);
 		buscarSoluciones(barraDeProceso);
 		
 	}
 
 	private void buscarSoluciones(JProgressBar barraDeProceso) throws Exception {
-		SimulacionBusqueda busqueda = new SimulacionBusqueda(barraDeProceso, sudoku, TextBuscando);
+		SimulacionBusqueda busqueda = new SimulacionBusqueda(barraDeProceso, sudoku, TextBuscando,this);
 		busqueda.execute();
+	}
+	
+	
+	public void crearBotonesDeSoluciones(List<Matriz> soluciones) {
+		PanelDeBotones panelDeBotones = new PanelDeBotones(scrollPaneDeBotones, soluciones,controlador,tablero);
+		panelDeBotones.setBorder(new EmptyBorder(10, 10, 10, 10));
+		panelDeBotones.crearBotonesDeSoluciones();
+		scrollPaneDeBotones.setPreferredSize(panelDeBotones.getSize());
+		scrollPaneDeBotones.setViewportView(panelDeBotones);
 	}
 }
