@@ -85,26 +85,10 @@ public class Menu{
 		generaSudokuAleatorio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String texto = JOptionPane.showInputDialog(
-						null,
-						"Ingrese una cantidad de valores prefijados:",
-						"",
-						JOptionPane.CANCEL_OPTION
-					);
-					if (texto != null) {
-						int cantidad = Integer.parseInt(texto.trim());
-						if (cantidad >= 15 && cantidad <= 40) {
-							Sudoku sudoku = new Sudoku();
-							Controlador controlador = new Controlador();
-							new InterfazFrame(controlador, sudoku, cantidad);
-						}
-						else {
-							JOptionPane.showMessageDialog(frame, 
-								"Entre 15 y 40.", 
-								"", 
-								JOptionPane.ERROR_MESSAGE);
-						}
-					}
+                int cantidadAleatoria = generarCantidadPrefijadaAleatoria();
+				Sudoku sudoku = new Sudoku();
+				Controlador controlador = new Controlador();
+				new InterfazFrame(controlador, sudoku, cantidadAleatoria);
 			}
 	});
 		
