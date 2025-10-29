@@ -6,6 +6,7 @@ import java.util.List;
 public class Sudoku {
 	private Matriz sudokuJuego;
 	private List<Matriz> solucionesDelSudokuJuego;
+	private int maxSolucionesAEncontrar = 20;
 	
 	public Sudoku() {
 		sudokuJuego = new Matriz();
@@ -69,18 +70,23 @@ public class Sudoku {
 	}
 	
 	private void encontrarTodasLasSolucionesRecursivo(Matriz sudokuSolucion, int fila, int columna) {
+		
+		if(solucionesDelSudokuJuego.size() == maxSolucionesAEncontrar){
+			return;
+		}
+		if(columna == 9) {
+			fila += 1 ;
+			columna = 0;
+			
+		}
+		
 		if(sudokuSolucion.matrizCompleta()) {
 			Matriz copiaSolucion = new Matriz();
 			int[][] matrizSudokuClonada = sudokuSolucion.clonar();
 			copiaSolucion.setMatrizClonada(matrizSudokuClonada);
 			solucionesDelSudokuJuego.add(copiaSolucion);
 			return;
-		}
-		
-		if(columna == 9) {
-			fila += 1 ;
-			columna = 0;
-		}
+		} 
 		
 		if(sudokuSolucion.casillaMarcada(fila, columna)) {
 			encontrarTodasLasSolucionesRecursivo(sudokuSolucion, fila, columna + 1);

@@ -36,7 +36,7 @@ public class SimulacionBusqueda extends SwingWorker<List<Matriz>, List<Matriz>> 
 	@Override
 	public void done() {
 		barra.setIndeterminate(false);
-		this.texto.setText("YA FUE ENCONTRADO");
+		this.texto.setText("    ¡ENCONTRADOS!");
 		visorDeSoluciones.crearBotonesDeSoluciones(soluciones);
 	}
 

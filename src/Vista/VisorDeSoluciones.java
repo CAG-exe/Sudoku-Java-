@@ -42,7 +42,7 @@ public class VisorDeSoluciones extends JFrame {
 	private Tablero tablero;
 	private JLabel TextBuscando;
 	private JScrollPane scrollPaneDeBotones;
-	private JPanel panel_1;
+	private int valoresPrefijados = 16;
 
 	/**
 	 * Launch the application.
@@ -124,7 +124,7 @@ public class VisorDeSoluciones extends JFrame {
 
 		
 		
-		this.tablero = new Tablero(controlador, sudokuModelo, 17);
+		this.tablero = new Tablero(controlador, sudokuModelo, valoresPrefijados);
 		tablero.bloquearEdicionDeCasillas();
 		tablero.setBounds(-111, 0, 724, 583);
 		panelDeTablero.add(tablero);
