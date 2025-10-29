@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -49,11 +50,12 @@ public class Menu{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(null);
 		frame.setTitle("Sudoku-Menu");
+		
 
 		JButton generaSudoku = new JButton("Generar");
 		generaSudoku.setFocusable(false);
 		generaSudoku.setFont(new Font("Arial", Font.BOLD, 14));
-		generaSudoku.setBounds(300, 450, 200, 100);
+		generaSudoku.setBounds(300, 40, 200, 100);
 		frame.add(generaSudoku);
 		generaSudoku.addActionListener(new ActionListener() {
 			@Override
@@ -81,12 +83,46 @@ public class Menu{
 				
 			}
 	});
+		JButton generaSudokuAleatorio = new JButton("Generar Aleatoriamente");
+		generaSudokuAleatorio.setFocusable(false);
+		generaSudokuAleatorio.setFont(new Font("Arial", Font.BOLD, 14));
+		generaSudokuAleatorio.setBounds(297, 230, 203, 100);
+		frame.add(generaSudokuAleatorio);
+		generaSudokuAleatorio.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+                int cantidadAleatoria = generarCantidadPrefijadaAleatoria();
+				Sudoku sudoku = new Sudoku();
+				Controlador controlador = new Controlador();
+				new InterfazFrame(controlador, sudoku, cantidadAleatoria);
+				
+			}
+	});
+		
+		JButton manual = new JButton("Manual");
+		manual.setFocusable(false);
+		manual.setFont(new Font("Arial", Font.BOLD, 14));
+		manual.setBounds(300, 420, 200, 100);
+		frame.add(manual);
+		manual.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new ManualVentana();
+				
+			}
+	});
+		
 		//JLabel logoSudoku = new JLabel("");
 		//ImageIcon Logo = new ImageIcon(getClass().getResource("/media/sudoku.png"));
 		//logoSudoku.setIcon(Logo);
 		//logoSudoku.setBounds(150, 41, 500, 400);
 		//frame.add(logoSudoku);
         
+	}
+	private int generarCantidadPrefijadaAleatoria() {
+		Random random = new Random();
+		int numero = (random.nextInt(26)) + 15;
+		return numero;
 	}
 	
 }
