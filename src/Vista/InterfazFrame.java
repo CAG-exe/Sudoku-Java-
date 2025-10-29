@@ -103,7 +103,7 @@ public class InterfazFrame {
 					}
 					else {
 						JOptionPane.showMessageDialog(frame, 
-							"Entre 1 y 81.", 
+							"Entre 15 y 40.", 
 							"", 
 							JOptionPane.ERROR_MESSAGE);
 					}
@@ -116,10 +116,8 @@ public class InterfazFrame {
 	public void actualizarCasillasMarcadas(int valor) {
 		if (valor == 0) {
 			cantidadValoresPrefijados--;
-			System.out.println(cantidadValoresPrefijados);
 			return;
 		}
 		cantidadValoresPrefijados++;
-		System.out.println(cantidadValoresPrefijados);
 	}
 }

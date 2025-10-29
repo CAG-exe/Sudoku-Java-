@@ -34,10 +34,12 @@ public class Tablero extends JPanel {
 		setLayout(null);
 		Sudoku su = sudokuModelo;
 		sudoku = su.getMatrizJuego();
-		sudoku.marcarCasillasConNumerosValidos(cantidadValoresPrefijados);
 		matrizGUI = new JTextField[9][9]; 
 		constructorDeMatriz();
-		marcarTablero();
+		if(cantidadValoresPrefijados>=0) {
+			sudoku.marcarCasillasConNumerosValidos(cantidadValoresPrefijados);
+			marcarTablero();
+		}
 		setBackground(new Color(240, 240, 240));
 	}
 	

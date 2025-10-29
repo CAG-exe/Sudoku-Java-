@@ -176,11 +176,9 @@ public class Matriz {
 	 public void aumetarCantidadDeNumerosIngresadosEnElTablero(int valor) {
 			if (valor == 0) {
 				cantDeValoresPrefijados--;
-				System.out.println(cantDeValoresPrefijados);
 				return;
 			}
 			cantDeValoresPrefijados++;
-			System.out.println(cantDeValoresPrefijados);
 	 }
 	 
 	 
