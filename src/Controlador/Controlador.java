@@ -33,6 +33,10 @@ public class Controlador {
 	public void actualizarValorDeCeldaEnModelo(int fila, int columna, int valor) {
 		sudokuModelo.setValorDeLaCelda(fila, columna, valor);
 		sudokuModelo.estaCompleto();
+		if(interfazFrame != null) 
+			interfazFrame.actualizarCasillasMarcadas(valor);
+			sudokuModelo.aumetarCantidadDeNumerosIngresadosEnElTablero(valor);
+		
 	}
 	
 	public void celdaActualizada(JTextField jText, int fila, int col, KeyEvent e) {

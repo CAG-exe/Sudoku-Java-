@@ -31,8 +31,6 @@ public class Tablero extends JPanel {
 		this.controlador = controlador;
 		this.sudokuModelo = sudokuModelo;
 		controlador.setTablero(this);
-		
-
 		setLayout(null);
 		Sudoku su = sudokuModelo;
 		sudoku = su.getMatrizJuego();
@@ -112,7 +110,7 @@ public class Tablero extends JPanel {
     
     
 	
-	private void marcarTablero() {
+	 void marcarTablero() {
 		int[][] copia = sudoku.clonar();
 		for(int fila=0 ; fila<9 ; fila++) {
 			for(int col=0 ; col<9 ; col++) {

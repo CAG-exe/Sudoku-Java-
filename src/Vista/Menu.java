@@ -5,15 +5,13 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Random;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 
 import Controlador.Controlador;
 import Modelo.Sudoku;
@@ -22,18 +20,15 @@ public class Menu{
 	
 	protected JButton ComoJugarButton;
 	private JFrame frame;
-	private Tablero tablero;
-	private Controlador controlador;
-	private Sudoku sudoku;
 	
-
-	/**
-	 * Create the panel.
-	 * @param controladorPrincipal 
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				try {
+				    UIManager.setLookAndFeel( new FlatMaterialLighterIJTheme() );
+				} catch( Exception ex ) {
+				    System.err.println( "Failed to initialize LaF" );
+				}
 				try {
 					Menu window = new Menu();
 					window.frame.setVisible(true);
@@ -52,7 +47,7 @@ public class Menu{
 		frame.setTitle("Sudoku-Menu");
 		
 
-		JButton generaSudoku = new JButton("Generar");
+		JButton generaSudoku = new JButton("Generar Manualmente");
 		generaSudoku.setFocusable(false);
 		generaSudoku.setFont(new Font("Arial", Font.BOLD, 14));
 		generaSudoku.setBounds(300, 40, 200, 100);
@@ -60,27 +55,9 @@ public class Menu{
 		generaSudoku.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String texto = JOptionPane.showInputDialog(
-					null,
-					"Ingrese una cantidad de valores prefijados:",
-					"",
-					JOptionPane.CANCEL_OPTION
-				);
-				if (texto != null) {
-					int cantidad = Integer.parseInt(texto.trim());
-					if (cantidad >= 15 && cantidad <= 40) {
-						Sudoku sudoku = new Sudoku();
-						Controlador controlador = new Controlador();
-						new InterfazFrame(controlador, sudoku, cantidad);
-					}
-					else {
-						JOptionPane.showMessageDialog(frame, 
-							"Entre 1 y 81.", 
-							"", 
-							JOptionPane.ERROR_MESSAGE);
-					}
-				}
-				
+				Sudoku sudoku = new Sudoku();
+				Controlador controlador = new Controlador();
+				new InterfazFrame(controlador, sudoku, 0);
 			}
 	});
 		JButton generaSudokuAleatorio = new JButton("Generar Aleatoriamente");
@@ -91,11 +68,26 @@ public class Menu{
 		generaSudokuAleatorio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-                int cantidadAleatoria = generarCantidadPrefijadaAleatoria();
-				Sudoku sudoku = new Sudoku();
-				Controlador controlador = new Controlador();
-				new InterfazFrame(controlador, sudoku, cantidadAleatoria);
-				
+				String texto = JOptionPane.showInputDialog(
+						null,
+						"Ingrese una cantidad de valores prefijados:",
+						"",
+						JOptionPane.CANCEL_OPTION
+					);
+					if (texto != null) {
+						int cantidad = Integer.parseInt(texto.trim());
+						if (cantidad >= 15 && cantidad <= 40) {
+							Sudoku sudoku = new Sudoku();
+							Controlador controlador = new Controlador();
+							new InterfazFrame(controlador, sudoku, cantidad);
+						}
+						else {
+							JOptionPane.showMessageDialog(frame, 
+								"Entre 15 y 40.", 
+								"", 
+								JOptionPane.ERROR_MESSAGE);
+						}
+					}
 			}
 	});
 		

@@ -126,4 +126,9 @@ public class Sudoku {
 	public List<Matriz> getSoluciones() {
 		return solucionesDelSudokuJuego;
 	}
+	
+	public void aumetarCantidadDeNumerosIngresadosEnElTablero(int valor) {
+		sudokuJuego.aumetarCantidadDeNumerosIngresadosEnElTablero(valor);
+		
+	}
 }

@@ -1,6 +1,5 @@
 package Vista;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +25,7 @@ public class InterfazFrame {
 		this.sudokuModelo = sudokuModelo;
 		this.cantidadValoresPrefijados = cantidadValoresPrefijados;
 		controlador.setSudoku(sudokuModelo);
+		controlador.setInterfazFrame(this);
 		inicializar();
 	}
 	
@@ -42,6 +42,7 @@ public class InterfazFrame {
 		/// para que muestre el tablero de una
 		tablero = new Tablero(controlador, sudokuModelo, cantidadValoresPrefijados);
 		frame.setContentPane(tablero);
+		System.out.println(cantidadValoresPrefijados);
 		
 		JButton solucionComprobar = new JButton("Comprobar solución");
 		solucionComprobar.setFocusable(false);
@@ -70,6 +71,7 @@ public class InterfazFrame {
 		
 		JButton solucionMostrar = new JButton("Mostrar solución");
 		solucionMostrar.addActionListener(e -> {
+			tablero.marcarTablero();
 			controlador.mostrarSolucionIndividualEnElTablero();
 		});
 		solucionMostrar.setFocusable(false);
@@ -110,4 +112,14 @@ public class InterfazFrame {
 			}
 	});
 }
+
+	public void actualizarCasillasMarcadas(int valor) {
+		if (valor == 0) {
+			cantidadValoresPrefijados--;
+			System.out.println(cantidadValoresPrefijados);
+			return;
+		}
+		cantidadValoresPrefijados++;
+		System.out.println(cantidadValoresPrefijados);
+	}
 }

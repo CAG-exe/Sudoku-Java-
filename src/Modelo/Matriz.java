@@ -13,7 +13,7 @@ public class Matriz {
 	private int[][] sudokuConValoresPrefijados;
 	private int cantDeValoresPrefijados;
 	private int maximoValorDePrefijados = 40;
-	private int minimoValorDePrefijados = 15;
+	private int minimoValorDePrefijados = 0;
 	
 	public Matriz() {
 		sudoku= new int[9][9];
@@ -49,7 +49,6 @@ public class Matriz {
 			throw new IllegalArgumentException("Los parametros X / Y son invalidos");
 		}
 		sudoku[x][y] = valor;
-		
 		return;
 	}
 
@@ -120,10 +119,12 @@ public class Matriz {
 	}
 
 	void setCantDeValoresPrefijados(int num) {
+		sudokuConValoresPrefijados = clonar();
 		cantDeValoresPrefijados = num;
 	}
 	
 	public int[][] getMatrizConValoresPrefijados() {
+		sudokuConValoresPrefijados = clonar();
 		return sudokuConValoresPrefijados;
 	}
 
@@ -161,5 +162,27 @@ public class Matriz {
 	 public int getCantDeValoresPrefijados() {
 		 return cantDeValoresPrefijados;
 	 }
+
+	 public void string() {
+		for(int i=0;i<sudoku.length;i++) {
+			for(int j=0;j<sudoku.length;j++) {
+				System.out.print(sudoku[i][j]+" ");
+			}
+			System.out.println();
+		}
+		System.out.println();
+	 }
+
+	 public void aumetarCantidadDeNumerosIngresadosEnElTablero(int valor) {
+			if (valor == 0) {
+				cantDeValoresPrefijados--;
+				System.out.println(cantDeValoresPrefijados);
+				return;
+			}
+			cantDeValoresPrefijados++;
+			System.out.println(cantDeValoresPrefijados);
+	 }
+	 
+	 
 	
 }
