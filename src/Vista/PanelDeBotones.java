@@ -32,7 +32,6 @@ public class PanelDeBotones extends JPanel {
 	public void crearBotonesDeSoluciones() {
 		for (int i = 0; i < soluciones.size(); i++) {
 			altura += 70;
-			setPreferredSize(new Dimension(250, altura));
 			int indice = i;
 			JButton botonDeSolucion = new JButton("Solución " + (i + 1));
 			botonDeSolucion.setAlignmentX(CENTER_ALIGNMENT);
@@ -43,6 +42,7 @@ public class PanelDeBotones extends JPanel {
 			});
 			this.add(botonDeSolucion);
 		}
+		setPreferredSize(new Dimension(250, altura));
 		this.revalidate();
 		this.repaint();
 	}

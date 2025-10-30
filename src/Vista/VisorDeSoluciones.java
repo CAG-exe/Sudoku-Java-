@@ -22,6 +22,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.Timer;
+
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
@@ -31,6 +33,10 @@ import java.util.List;
 
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Color;
 
 public class VisorDeSoluciones extends JFrame {
 
@@ -43,6 +49,11 @@ public class VisorDeSoluciones extends JFrame {
 	private JLabel TextBuscando;
 	private JScrollPane scrollPaneDeBotones;
 	private int valoresPrefijados = 16;
+	private JPanel PanelInferior;
+	private JLabel tiempo;
+	private int segundosTranscurridos;
+	private boolean tiempoActivo;
+	private Timer timer;
 
 	/**
 	 * Launch the application.
@@ -85,8 +96,8 @@ public class VisorDeSoluciones extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		JPanel panelDeTablero = new JPanel();
-		contentPane.add(panelDeTablero);
 		panelDeTablero.setBounds(375, 75, 579, 508);
+		contentPane.add(panelDeTablero);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 0, 934, 77);
@@ -96,24 +107,33 @@ public class VisorDeSoluciones extends JFrame {
 		
 		this.TextBuscando = new JLabel("Buscando soluciones...");
 		TextBuscando.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		TextBuscando.setHorizontalAlignment(JLabel.CENTER);
+		
+		tiempo = new JLabel("00:00");
+		tiempo.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		tiempo.setHorizontalAlignment(JLabel.RIGHT);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(barraDeProceso, GroupLayout.DEFAULT_SIZE, 914, Short.MAX_VALUE)
 							.addContainerGap())
-						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(tiempo, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 300, Short.MAX_VALUE)
 							.addComponent(TextBuscando, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
 							.addGap(354))))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap(12, Short.MAX_VALUE)
-					.addComponent(TextBuscando, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(TextBuscando, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tiempo, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(barraDeProceso, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
@@ -126,13 +146,19 @@ public class VisorDeSoluciones extends JFrame {
 		
 		this.tablero = new Tablero(controlador, sudokuModelo, valoresPrefijados);
 		tablero.bloquearEdicionDeCasillas();
-		tablero.setBounds(-111, 0, 724, 583);
+		tablero.setBounds(-111, 0, 724, 450);
 		panelDeTablero.add(tablero);
+		
+		PanelInferior = new JPanel();
+		PanelInferior.setBackground(new Color(240, 240, 240));
+		PanelInferior.setBounds(0, 449, 579, 59);
+		panelDeTablero.add(PanelInferior);
 		
 		
 		this.scrollPaneDeBotones = new JScrollPane();
-		contentPane.add(scrollPaneDeBotones);
 		scrollPaneDeBotones.setBounds(10, 75, 367, 508);
+		scrollPaneDeBotones.setBorder(null);
+		contentPane.add(scrollPaneDeBotones);
 		scrollPaneDeBotones.getVerticalScrollBar().setUnitIncrement(16);
 		buscarSoluciones(barraDeProceso);
 		
@@ -151,4 +177,38 @@ public class VisorDeSoluciones extends JFrame {
 		scrollPaneDeBotones.setPreferredSize(panelDeBotones.getSize());
 		scrollPaneDeBotones.setViewportView(panelDeBotones);
 	}
+	
+	public void setTiempo(int segundos) {
+		int min = segundos / 60;
+		int sec = segundos % 60;
+		String tiempoFormateado = String.format("%02d:%02d", min, sec);
+		this.tiempo.setText(tiempoFormateado);
+	}
+	
+	public void iniciarCronometro() {
+		segundosTranscurridos = 0;
+		tiempoActivo = true;
+		timer = new Timer(1000, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (tiempoActivo) {
+					segundosTranscurridos++;
+					setTiempo(segundosTranscurridos);
+				}
+			}
+			
+		});
+		
+		timer.start();
+	}
+	
+	public void detenerCronometro() {
+		tiempoActivo = false;
+		if (timer != null) {
+			timer.stop();
+		}
+	}
+	
+	
 }

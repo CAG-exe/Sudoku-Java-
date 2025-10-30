@@ -28,6 +28,7 @@ public class SimulacionBusqueda extends SwingWorker<List<Matriz>, List<Matriz>> 
 	
 	@Override
 	protected List<Matriz> doInBackground() throws Exception {
+		visorDeSoluciones.iniciarCronometro();
 		barra.setIndeterminate(true);
 		sudoku.resolverSudoku();
 		this.soluciones = sudoku.getSoluciones();
@@ -35,9 +36,14 @@ public class SimulacionBusqueda extends SwingWorker<List<Matriz>, List<Matriz>> 
 	}
 	@Override
 	public void done() {
+		if(soluciones.size()>0) {
+			this.texto.setText("    ¡ENCONTRADOS!");
+			visorDeSoluciones.crearBotonesDeSoluciones(soluciones);
+		} else {
+			this.texto.setText("¡NO TIENE SOLUCION!");
+		}
 		barra.setIndeterminate(false);
-		this.texto.setText("    ¡ENCONTRADOS!");
-		visorDeSoluciones.crearBotonesDeSoluciones(soluciones);
+		visorDeSoluciones.detenerCronometro();
 	}
 
 }
