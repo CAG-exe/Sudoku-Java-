@@ -18,6 +18,8 @@ public class InterfazFrame {
 	private Controlador controlador;
 	private Sudoku sudokuModelo;
 	private int cantidadValoresPrefijados;
+	private JButton solucionMostrar;
+	private JButton soluciones;
 	
 
 	public InterfazFrame(Controlador controlador, Sudoku sudokuModelo,int cantidadValoresPrefijados) {
@@ -44,6 +46,8 @@ public class InterfazFrame {
 		frame.setContentPane(tablero);
 		System.out.println(cantidadValoresPrefijados);
 		
+		
+		
 		JButton solucionComprobar = new JButton("Comprobar solución");
 		solucionComprobar.setFocusable(false);
 		solucionComprobar.setFont(new Font("Arial", Font.BOLD, 14));
@@ -55,10 +59,12 @@ public class InterfazFrame {
 		        boolean tieneSolucion = sudokuModelo.resolverSudoku();
 		        
 		        if (tieneSolucion) {
+		        	
 					JOptionPane.showMessageDialog(frame, 
 							"Tiene solucion", 
 							"", 
 							JOptionPane.INFORMATION_MESSAGE);
+					solucionMostrar.setEnabled(true);
 		        } else {
 					JOptionPane.showMessageDialog(frame, 
 							"No tiene solucion", 
@@ -69,15 +75,28 @@ public class InterfazFrame {
 		});
 		
 		
-		JButton solucionMostrar = new JButton("Mostrar solución");
+		solucionMostrar = new JButton("Mostrar solución");
 		solucionMostrar.addActionListener(e -> {
 			tablero.marcarTablero();
 			controlador.mostrarSolucionIndividualEnElTablero();
+			soluciones.setEnabled(true);
 		});
 		solucionMostrar.setFocusable(false);
 		solucionMostrar.setFont(new Font("Arial", Font.BOLD, 14));
 		solucionMostrar.setBounds(20, 497, 200, 50);
+		solucionMostrar.setEnabled(false);
 		frame.getContentPane().add(solucionMostrar);
+		
+		soluciones = new JButton("Todas sus soluciones");
+		soluciones.addActionListener(e -> {
+			tablero.marcarTablero();
+			controlador.mostrarSolucionIndividualEnElTablero();
+		});
+		soluciones.setFocusable(false);
+		soluciones.setFont(new Font("Arial", Font.BOLD, 14));
+		soluciones.setBounds(580, 387, 200, 50);
+		frame.getContentPane().add(soluciones);
+		soluciones.setEnabled(false);
 		
 		JButton generaSudoku = new JButton("Generar Sudoku");
 		generaSudoku.setFocusable(false);
