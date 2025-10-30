@@ -38,8 +38,8 @@ public class Tablero extends JPanel {
 		constructorDeMatriz();
 		if(cantidadValoresPrefijados>=0) {
 			sudoku.marcarCasillasConNumerosValidos(cantidadValoresPrefijados);
-			marcarTablero();
 		}
+		marcarTablero();
 		setBackground(new Color(240, 240, 240));
 	}
 	

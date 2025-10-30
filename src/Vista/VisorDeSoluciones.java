@@ -48,7 +48,7 @@ public class VisorDeSoluciones extends JFrame {
 	private Tablero tablero;
 	private JLabel TextBuscando;
 	private JScrollPane scrollPaneDeBotones;
-	private int valoresPrefijados = 16;
+	private int cantidadValoresPrefijados;
 	private JPanel PanelInferior;
 	private JLabel tiempo;
 	private int segundosTranscurridos;
@@ -70,7 +70,7 @@ public class VisorDeSoluciones extends JFrame {
 					
 					Controlador controlador = new Controlador();
 					Sudoku sudokuModelo = new Sudoku();
-					VisorDeSoluciones frame = new VisorDeSoluciones(controlador, sudokuModelo);
+					VisorDeSoluciones frame = new VisorDeSoluciones(controlador, sudokuModelo, 16);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -83,12 +83,12 @@ public class VisorDeSoluciones extends JFrame {
 	 * Create the frame.
 	 * @throws Exception 
 	 */
-	public VisorDeSoluciones(Controlador controlador, Sudoku sudokuModelo) throws Exception {
+	public VisorDeSoluciones(Controlador controlador, Sudoku sudokuModelo, int valoresPrefijados) throws Exception {
 		setResizable(false);
 		this.sudoku = sudokuModelo;
 		this.controlador = controlador;
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 970, 622);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
@@ -144,7 +144,7 @@ public class VisorDeSoluciones extends JFrame {
 
 		
 		
-		this.tablero = new Tablero(controlador, sudokuModelo, valoresPrefijados);
+		this.tablero = new Tablero(controlador, sudokuModelo, -1);
 		tablero.bloquearEdicionDeCasillas();
 		tablero.setBounds(-111, 0, 724, 450);
 		panelDeTablero.add(tablero);

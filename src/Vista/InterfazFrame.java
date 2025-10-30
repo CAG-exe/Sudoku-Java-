@@ -91,6 +91,12 @@ public class InterfazFrame {
 		soluciones.addActionListener(e -> {
 			tablero.marcarTablero();
 			controlador.mostrarSolucionIndividualEnElTablero();
+			try {
+				VisorDeSoluciones visor = new VisorDeSoluciones(controlador, sudokuModelo, this.cantidadValoresPrefijados);
+				visor.setVisible(true);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		});
 		soluciones.setFocusable(false);
 		soluciones.setFont(new Font("Arial", Font.BOLD, 14));
