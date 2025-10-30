@@ -55,6 +55,19 @@ public class Menu{
 		generaSudoku.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Sudoku sudoku = new Sudoku();
+				Controlador controlador = new Controlador();
+				new InterfazFrame(controlador, sudoku, 0);
+			}
+	});
+		JButton generaSudokuAleatorio = new JButton("Generar Aleatoriamente");
+		generaSudokuAleatorio.setFocusable(false);
+		generaSudokuAleatorio.setFont(new Font("Arial", Font.BOLD, 14));
+		generaSudokuAleatorio.setBounds(297, 230, 203, 100);
+		frame.add(generaSudokuAleatorio);
+		generaSudokuAleatorio.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
 				String texto = JOptionPane.showInputDialog(
 						null,
 						"Ingrese una cantidad de valores prefijados:",
@@ -75,20 +88,6 @@ public class Menu{
 								JOptionPane.ERROR_MESSAGE);
 						}
 					}
-			}
-	});
-		JButton generaSudokuAleatorio = new JButton("Generar Aleatoriamente");
-		generaSudokuAleatorio.setFocusable(false);
-		generaSudokuAleatorio.setFont(new Font("Arial", Font.BOLD, 14));
-		generaSudokuAleatorio.setBounds(297, 230, 203, 100);
-		frame.add(generaSudokuAleatorio);
-		generaSudokuAleatorio.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-                int cantidadAleatoria = generarCantidadPrefijadaAleatoria();
-				Sudoku sudoku = new Sudoku();
-				Controlador controlador = new Controlador();
-				new InterfazFrame(controlador, sudoku, cantidadAleatoria);
 			}
 	});
 		
