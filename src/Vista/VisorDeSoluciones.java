@@ -48,7 +48,7 @@ public class VisorDeSoluciones extends JFrame {
 	private Tablero tablero;
 	private JLabel TextBuscando;
 	private JScrollPane scrollPaneDeBotones;
-	private int cantidadValoresPrefijados;
+	private int valoresPrefijados;
 	private JPanel PanelInferior;
 	private JLabel tiempo;
 	private int segundosTranscurridos;
