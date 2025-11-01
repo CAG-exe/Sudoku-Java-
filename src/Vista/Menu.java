@@ -6,8 +6,11 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -20,6 +23,7 @@ public class Menu{
 	
 	protected JButton ComoJugarButton;
 	private JFrame frame;
+	private Color color; 
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -45,12 +49,30 @@ public class Menu{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(null);
 		frame.setTitle("Sudoku-Menu");
+		color = new Color(231, 211, 175);
+		
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("src/media/Wombats_Solving_Sudoku_Together-removebg-preview (1).png"));
+		lblNewLabel.setBounds(59, 48, 402, 265);
+		frame.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Sudoku ");
+		lblNewLabel_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 70));
+		lblNewLabel_1.setBounds(460, 83, 235, 82);
+		frame.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Resolver");
+		lblNewLabel_2.setFont(new Font("Tw Cen MT", Font.PLAIN, 70));
+		lblNewLabel_2.setBounds(460, 146, 235, 102);
+		frame.add(lblNewLabel_2);
 		
 
 		JButton generaSudoku = new JButton("Generar Manualmente");
 		generaSudoku.setFocusable(false);
-		generaSudoku.setFont(new Font("Arial", Font.BOLD, 14));
-		generaSudoku.setBounds(300, 40, 200, 100);
+		generaSudoku.setFont(new Font("Arial", Font.BOLD, 18));
+		generaSudoku.setBackground(color);
+		generaSudoku.setBounds(102, 353, 245, 66);
 		frame.add(generaSudoku);
 		generaSudoku.addActionListener(new ActionListener() {
 			@Override
@@ -62,8 +84,9 @@ public class Menu{
 	});
 		JButton generaSudokuAleatorio = new JButton("Generar Aleatoriamente");
 		generaSudokuAleatorio.setFocusable(false);
-		generaSudokuAleatorio.setFont(new Font("Arial", Font.BOLD, 14));
-		generaSudokuAleatorio.setBounds(297, 230, 203, 100);
+		generaSudokuAleatorio.setFont(new Font("Arial", Font.BOLD, 18));
+		generaSudokuAleatorio.setBackground(color);
+		generaSudokuAleatorio.setBounds(102, 432, 245, 66);
 		frame.add(generaSudokuAleatorio);
 		generaSudokuAleatorio.addActionListener(new ActionListener() {
 			@Override
@@ -93,8 +116,9 @@ public class Menu{
 		
 		JButton manual = new JButton("Manual");
 		manual.setFocusable(false);
-		manual.setFont(new Font("Arial", Font.BOLD, 14));
-		manual.setBounds(300, 420, 200, 100);
+		manual.setFont(new Font("Arial", Font.BOLD, 20));
+		manual.setBackground(color);
+		manual.setBounds(425, 430, 235, 66);
 		frame.add(manual);
 		manual.addActionListener(new ActionListener() {
 			@Override
@@ -104,12 +128,13 @@ public class Menu{
 			}
 	});
 		
-		//JLabel logoSudoku = new JLabel("");
-		//ImageIcon Logo = new ImageIcon(getClass().getResource("/media/sudoku.png"));
-		//logoSudoku.setIcon(Logo);
-		//logoSudoku.setBounds(150, 41, 500, 400);
-		//frame.add(logoSudoku);
-        
+		JButton estadisticas = new JButton("Estadisticas");
+		estadisticas.setFocusable(false);
+		estadisticas.setFont(new Font("Arial", Font.BOLD, 18));
+		estadisticas.setBackground(color);
+		estadisticas.setBounds(425, 353, 235, 66);
+		frame.add(estadisticas);
+		
 	}
 	private int generarCantidadPrefijadaAleatoria() {
 		Random random = new Random();
