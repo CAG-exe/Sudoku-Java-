@@ -118,7 +118,7 @@ public class VisorDeSoluciones extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		BotonDeGuardarDatos.setBounds(10, 0, 167, 48);
+		BotonDeGuardarDatos.setBounds(10, 0, 159, 48);
 		PanelInferior.add(BotonDeGuardarDatos);
 		
 		

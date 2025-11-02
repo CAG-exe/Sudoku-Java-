@@ -52,7 +52,7 @@ public class SudokuVisual extends JPanel {
 				controlador.mostrarMenu();
 			}
 		});
-		volverAlMenu.setBounds(619, 493, 129, 52);
+		volverAlMenu.setBounds(612, 493, 153, 52);
 		add(volverAlMenu);
 		System.out.println(cantidadValoresPrefijados);
 		
