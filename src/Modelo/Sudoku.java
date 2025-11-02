@@ -131,4 +131,8 @@ public class Sudoku {
 		sudokuJuego.aumetarCantidadDeNumerosIngresadosEnElTablero(valor);
 		
 	}
+
+	public void reiniciarSudoku() {
+		sudokuJuego.rellenarDeCeros();
+	}
 }

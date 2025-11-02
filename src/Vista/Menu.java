@@ -2,27 +2,22 @@ package Vista;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 
 import Controlador.Controlador;
 import Modelo.Sudoku;
 
 public class Menu extends JPanel{
 	
+	private static final long serialVersionUID = 1L;
 	protected JButton ComoJugarButton;
 	private Color color; 
 	
@@ -113,11 +108,6 @@ public class Menu extends JPanel{
 		estadisticas.setBounds(425, 353, 235, 66);
 		add(estadisticas);
 		
-	}
-	private int generarCantidadPrefijadaAleatoria() {
-		Random random = new Random();
-		int numero = (random.nextInt(26)) + 15;
-		return numero;
 	}
 	
 }

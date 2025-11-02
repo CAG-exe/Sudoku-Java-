@@ -1,26 +1,16 @@
 package Vista;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 import Controlador.Controlador;
 import Modelo.Sudoku;
 
 public class InterfazFrame extends JFrame{
 
-	private Tablero tablero;
-	private Controlador controlador;
-	private Sudoku sudokuModelo;
-	private int cantidadValoresPrefijados;
+	private static final long serialVersionUID = 1L;                                   ///////////// 
+	private Controlador controlador;								/////////////
+	private Sudoku sudokuModelo;						           /////////////				      /////////////	
 	private Menu menu;
 	
 

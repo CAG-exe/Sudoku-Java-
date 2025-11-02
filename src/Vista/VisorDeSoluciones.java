@@ -1,39 +1,21 @@
 package Vista;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
+
 import javax.swing.border.EmptyBorder;
-
-import com.formdev.flatlaf.intellijthemes.FlatCarbonIJTheme;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
-
 import Controlador.Controlador;
 import Modelo.Matriz;
 import Modelo.Sudoku;
 import javax.swing.JProgressBar;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-
-import javax.script.ScriptContext;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.Timer;
-
 import java.awt.Font;
-import java.awt.GridBagLayout;
 import javax.swing.JButton;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.util.List;
-
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
@@ -41,7 +23,6 @@ import java.awt.Color;
 public class VisorDeSoluciones extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	private JProgressBar barraDeProceso;
 	private Sudoku sudoku;
 	private Controlador controlador;

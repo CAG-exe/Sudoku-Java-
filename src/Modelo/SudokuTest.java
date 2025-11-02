@@ -8,9 +8,11 @@ public class SudokuTest {
 
 	@Test
 	public void testConstructor() {
+		@SuppressWarnings("unused")
 		Sudoku sudoku = new Sudoku();
 	}
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void getMatrizJuegoTest() {
 		Sudoku sudoku = new Sudoku();

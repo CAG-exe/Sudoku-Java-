@@ -14,6 +14,7 @@ import Modelo.Matriz;
 public class PanelDeBotones extends JPanel {
 	
 
+	private static final long serialVersionUID = 1L;
 	private JScrollPane scrollPaneDeBotones;
 	private List<Matriz> soluciones;
 	private Controlador controlador;

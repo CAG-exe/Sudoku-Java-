@@ -4,11 +4,12 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.WindowConstants;
 
 public class ManualVentana extends JFrame {
 
-    public ManualVentana() {
+    private static final long serialVersionUID = 1L;
+
+	public ManualVentana() {
         setTitle("Manual del Juego de Sudoku");
         setBounds(100, 100, 800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -25,7 +25,7 @@ public class aaa extends JPanel {
 		add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("New button");
-		btnNewButton_2.setBounds(108, 52, 89, 23);
+		btnNewButton_2.setBounds(108, 52, 89, 23); 
 		add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("New button");

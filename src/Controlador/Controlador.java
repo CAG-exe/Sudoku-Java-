@@ -48,6 +48,7 @@ public class Controlador {
 	}
 	
 	public void mostrarMenu() {
+		sudokuModelo.reiniciarSudoku();
 		interfazFrame.mostrarPanelMenu();
 	}
 	

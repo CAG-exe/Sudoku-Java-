@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
-import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
 import Modelo.Matriz;

@@ -1,9 +1,7 @@
 package Modelo;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -20,7 +18,7 @@ public class Matriz {
 		rellenarDeCeros();
 	}
 
-	private void rellenarDeCeros() {
+	public void rellenarDeCeros() {
 		for(int fila=0;fila<sudoku.length;fila++) {
 			for(int col=0;col<sudoku.length;col++) {
 				sudoku[fila][col]=0;
