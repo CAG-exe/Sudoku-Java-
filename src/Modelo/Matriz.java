@@ -106,6 +106,7 @@ public class Matriz {
 	}
 	
 	public void marcarCasillasConNumerosValidos(int num) {
+		System.out.println(num);
 		setCantDeValoresPrefijados(num);
 		if(num<minimoValorDePrefijados || num>maximoValorDePrefijados) {
 			throw new IllegalArgumentException("numero de casillas no valido, tiene que estar entre 15 o 40");

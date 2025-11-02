@@ -135,4 +135,8 @@ public class Sudoku {
 	public void reiniciarSudoku() {
 		sudokuJuego.rellenarDeCeros();
 	}
+	
+	public void setMaxSolucionesAEncontrar(int maxSoluciones) {
+		this.maxSolucionesAEncontrar = maxSoluciones;
+	}
 }

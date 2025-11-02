@@ -171,7 +171,6 @@ public class Tablero extends JPanel {
 	}
 	
 	public void actualizarTableroConLaSolucion(int[][] matrizSolucion) {
-		//int[][] valoresPrefijados = sudokuModelo.getMatrizDeSudokuConValoresPrefijados();
 		for (int fila = 0; fila < 9; fila++) {
 			for (int col = 0; col < 9; col++) {
 				matrizGUI[fila][col].setText(matrizSolucion[fila][col] + "");

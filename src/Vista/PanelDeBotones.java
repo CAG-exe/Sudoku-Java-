@@ -39,7 +39,7 @@ public class PanelDeBotones extends JPanel {
 			botonDeSolucion.setMaximumSize(new Dimension(250, 70));
 			botonDeSolucion.setMinimumSize(new Dimension(250, 70));
 			botonDeSolucion.addActionListener(e -> {
-				controlador.mostrarSolucionIndividualEnElTablero(tablero,soluciones.get(indice).clonar());
+				controlador.mostrarSolucionEnElTablero(tablero,soluciones.get(indice).clonar());
 			});
 			this.add(botonDeSolucion);
 		}

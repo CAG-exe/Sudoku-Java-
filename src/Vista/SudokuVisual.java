@@ -4,11 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Controlador.Controlador;
 import Modelo.Sudoku;
 import java.awt.Color;
+import java.awt.Component;
 
 public class SudokuVisual extends JPanel {
 
@@ -38,7 +40,7 @@ public class SudokuVisual extends JPanel {
 		JButton buscarSoluciones = new JButton("Buscar Soluciones");
 		buscarSoluciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controlador.mostrarVisorDeSoluciones(sudokuModelo, cantidadValoresPrefijados, tablero);
+				controlador.buscarSoluciones(sudokuModelo, cantidadValoresPrefijados, tablero);
 			}
 		});
 		buscarSoluciones.setBounds(42, 493, 153, 52);
@@ -63,5 +65,34 @@ public class SudokuVisual extends JPanel {
 			return;
 		}
 		cantidadValoresPrefijados++;
+	}
+	
+	public void bloquearEdicionDeCasillas() {
+		tablero.bloquearEdicionDeCasillas();
+	}
+	
+	
+	public int preguntarCantidadDeSoluciones() {
+		int cantidad = 1;
+		String texto = JOptionPane.showInputDialog(
+				null,
+				"Como hay menos de 17 valores prefijados, pueden existir múltiples soluciones.\n Ingrese la cantidad de soluciones a buscar:",
+				"",
+				JOptionPane.CANCEL_OPTION
+			);
+			if (texto != null) {
+				cantidad = Integer.parseInt(texto.trim());
+				if (cantidad > 0) {
+					return cantidad;
+				}
+				else {
+					Component frame = null;
+					JOptionPane.showMessageDialog(frame, 
+							"Tiene que ser un numero mayor a 0", 
+							"", 
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		return -1;
 	}
 }

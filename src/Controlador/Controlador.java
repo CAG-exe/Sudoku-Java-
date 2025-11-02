@@ -44,6 +44,9 @@ public class Controlador {
 	public void mostrarSudokuAleatorio(int cantidadValoresPrefijados) {
 		Sudoku sudokuModelo = new Sudoku();
 		sudokuVisual =  new SudokuVisual(this, sudokuModelo, cantidadValoresPrefijados);
+		if(cantidadValoresPrefijados > 0) {
+			sudokuVisual.bloquearEdicionDeCasillas();
+		}
 		interfazFrame.mostrarPanelSudoku(sudokuVisual);
 	}
 	
@@ -52,7 +55,8 @@ public class Controlador {
 		interfazFrame.mostrarPanelMenu();
 	}
 	
-	public void mostrarVisorDeSoluciones(Sudoku sudokuModelo, int cantidadValoresPrefijados, Tablero tablero) {
+	public void mostrarVisorDeSoluciones(Sudoku sudokuModelo, int cantidadValoresPrefijados, Tablero tablero, int MAX_SOLUCIONES) {
+		sudokuModelo.setMaxSolucionesAEncontrar(MAX_SOLUCIONES);
 		VisorDeSoluciones visor = new VisorDeSoluciones(this, sudokuModelo,	tablero);
 		interfazFrame.mostrarPanelSoluciones(visor);
 	}
@@ -110,9 +114,27 @@ public class Controlador {
 	    tableroActual.bloquearEdicionDeCasillas();
 	}
 	
-	public void mostrarSolucionIndividualEnElTablero(Tablero tabla, int[][] solucion) {
+	public void mostrarSolucionEnElTablero(Tablero tabla, int[][] solucion) {
 		tabla.actualizarTableroConLaSolucion(solucion);
 		tabla.bloquearEdicionDeCasillas();
+	}
+
+	public void buscarSoluciones(Sudoku sudokuModelo, int cantidadValoresPrefijados, Tablero tablero) {
+		if (cantidadValoresPrefijados >= 17) {
+			mostrarSolucionUnicaEnElTablero(tablero, sudokuModelo);
+		} else {
+			int cantidadDeSoluciones = sudokuVisual.preguntarCantidadDeSoluciones();
+			while (cantidadDeSoluciones <= 0) {
+				cantidadDeSoluciones = sudokuVisual.preguntarCantidadDeSoluciones();
+			}
+			mostrarVisorDeSoluciones(sudokuModelo, cantidadValoresPrefijados, tablero, cantidadDeSoluciones);
+		}
+		
+	}
+
+	private void mostrarSolucionUnicaEnElTablero(Tablero tablero, Sudoku sudokuModeloActual) {
+		sudokuModeloActual.resolverSudoku();
+		mostrarSolucionEnElTablero(tablero, sudokuModeloActual.getUnicaSolucion());
 	}
 	
 }

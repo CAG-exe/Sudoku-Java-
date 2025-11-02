@@ -65,6 +65,5 @@ public class InterfazFrame extends JFrame{
 		getContentPane().add(soluciones, BorderLayout.CENTER);
 		revalidate();
 		repaint();
-		System.out.println("No FUNCIONA");
 	}
 }
