@@ -35,23 +35,23 @@ public class SudokuVisual extends JPanel {
 		tablero.setBounds(0, -12, 800, 505);
 		this.add(tablero);
 		
-		JButton btnNewButton = new JButton("Buscar Soluciones");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton buscarSoluciones = new JButton("Buscar Soluciones");
+		buscarSoluciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controlador.mostrarVisorDeSoluciones(sudokuModelo, cantidadValoresPrefijados, tablero);
 			}
 		});
-		btnNewButton.setBounds(42, 493, 153, 52);
-		add(btnNewButton);
+		buscarSoluciones.setBounds(42, 493, 153, 52);
+		add(buscarSoluciones);
 		
-		JButton btnNewButton_1 = new JButton("Volver");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton volverAlMenu = new JButton("Volver");
+		volverAlMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controlador.mostrarMenu();
 			}
 		});
-		btnNewButton_1.setBounds(619, 493, 129, 52);
-		add(btnNewButton_1);
+		volverAlMenu.setBounds(619, 493, 129, 52);
+		add(volverAlMenu);
 		System.out.println(cantidadValoresPrefijados);
 		
 		
