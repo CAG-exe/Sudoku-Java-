@@ -1,6 +1,7 @@
 package Vista;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -12,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
@@ -19,53 +21,32 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighte
 import Controlador.Controlador;
 import Modelo.Sudoku;
 
-public class Menu{
+public class Menu extends JPanel{
 	
 	protected JButton ComoJugarButton;
-	private JFrame frame;
 	private Color color; 
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-				    UIManager.setLookAndFeel( new FlatMaterialLighterIJTheme() );
-				} catch( Exception ex ) {
-				    System.err.println( "Failed to initialize LaF" );
-				}
-				try {
-					Menu window = new Menu();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	public Menu() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 800, 600);
-		frame.getContentPane().setBackground(new Color(206, 175, 174));
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(null);
-		frame.setTitle("Sudoku-Menu");
+	public Menu(Controlador controlador, Sudoku sudoku) {
+		setBounds(100, 100, 800, 600);
+		setBackground(new Color(206, 175, 174));
+		setLayout(null);
 		color = new Color(231, 211, 175);
 		
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon("src/media/Wombats_Solving_Sudoku_Together-removebg-preview (1).png"));
 		lblNewLabel.setBounds(59, 48, 402, 265);
-		frame.add(lblNewLabel);
+		add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Sudoku ");
 		lblNewLabel_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 70));
-		lblNewLabel_1.setBounds(460, 83, 235, 82);
-		frame.add(lblNewLabel_1);
+		lblNewLabel_1.setBounds(460, 83, 279, 82);
+		add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Resolver");
 		lblNewLabel_2.setFont(new Font("Tw Cen MT", Font.PLAIN, 70));
-		lblNewLabel_2.setBounds(460, 146, 235, 102);
-		frame.add(lblNewLabel_2);
+		lblNewLabel_2.setBounds(460, 146, 295, 102);
+		add(lblNewLabel_2);
 		
 
 		JButton generaSudoku = new JButton("Generar Manualmente");
@@ -73,13 +54,11 @@ public class Menu{
 		generaSudoku.setFont(new Font("Arial", Font.BOLD, 18));
 		generaSudoku.setBackground(color);
 		generaSudoku.setBounds(102, 353, 245, 66);
-		frame.add(generaSudoku);
+		add(generaSudoku);
 		generaSudoku.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Sudoku sudoku = new Sudoku();
-				Controlador controlador = new Controlador();
-				new InterfazFrame(controlador, sudoku, 0);
+				controlador.mostrarSudoku();
 			}
 	});
 		JButton generaSudokuAleatorio = new JButton("Generar Aleatoriamente");
@@ -87,7 +66,7 @@ public class Menu{
 		generaSudokuAleatorio.setFont(new Font("Arial", Font.BOLD, 18));
 		generaSudokuAleatorio.setBackground(color);
 		generaSudokuAleatorio.setBounds(102, 432, 245, 66);
-		frame.add(generaSudokuAleatorio);
+		add(generaSudokuAleatorio);
 		generaSudokuAleatorio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -100,15 +79,14 @@ public class Menu{
 					if (texto != null) {
 						int cantidad = Integer.parseInt(texto.trim());
 						if (cantidad >= 15 && cantidad <= 40) {
-							Sudoku sudoku = new Sudoku();
-							Controlador controlador = new Controlador();
-							new InterfazFrame(controlador, sudoku, cantidad);
+							controlador.mostrarSudokuAleatorio(cantidad);
 						}
 						else {
+							Component frame = null;
 							JOptionPane.showMessageDialog(frame, 
-								"Entre 15 y 40.", 
-								"", 
-								JOptionPane.ERROR_MESSAGE);
+									"Entre 15 y 40.", 
+									"", 
+									JOptionPane.ERROR_MESSAGE);
 						}
 					}
 			}
@@ -119,7 +97,7 @@ public class Menu{
 		manual.setFont(new Font("Arial", Font.BOLD, 20));
 		manual.setBackground(color);
 		manual.setBounds(425, 430, 235, 66);
-		frame.add(manual);
+		add(manual);
 		manual.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -133,7 +111,7 @@ public class Menu{
 		estadisticas.setFont(new Font("Arial", Font.BOLD, 18));
 		estadisticas.setBackground(color);
 		estadisticas.setBounds(425, 353, 235, 66);
-		frame.add(estadisticas);
+		add(estadisticas);
 		
 	}
 	private int generarCantidadPrefijadaAleatoria() {

@@ -38,7 +38,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 
-public class VisorDeSoluciones extends JFrame {
+public class VisorDeSoluciones extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -54,54 +54,22 @@ public class VisorDeSoluciones extends JFrame {
 	private int segundosTranscurridos;
 	private boolean tiempoActivo;
 	private Timer timer;
+	private JButton volverAlMenu;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-		    UIManager.setLookAndFeel( new FlatMaterialLighterIJTheme() );
-		} catch( Exception ex ) {
-		    System.err.println( "Failed to initialize LaF" );
-		}
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					
-					Controlador controlador = new Controlador();
-					Sudoku sudokuModelo = new Sudoku();
-					VisorDeSoluciones frame = new VisorDeSoluciones(controlador, sudokuModelo, 16);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 * @throws Exception 
-	 */
-	public VisorDeSoluciones(Controlador controlador, Sudoku sudokuModelo, int valoresPrefijados) throws Exception {
-		setResizable(false);
+	public VisorDeSoluciones(Controlador controlador, Sudoku sudokuModelo, Tablero tablero) {
 		this.sudoku = sudokuModelo;
 		this.controlador = controlador;
-		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
 		setBounds(100, 100, 970, 622);
-		setLocationRelativeTo(null);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setBorder(new EmptyBorder(5, 5, 5, 5));
+		setLayout(null);
 		JPanel panelDeTablero = new JPanel();
 		panelDeTablero.setBounds(375, 75, 579, 508);
-		contentPane.add(panelDeTablero);
+		add(panelDeTablero);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 0, 934, 77);
-		contentPane.add(panel);
+		add(panel);
 		
 		barraDeProceso = new JProgressBar();
 		
@@ -144,23 +112,37 @@ public class VisorDeSoluciones extends JFrame {
 
 		
 		
-		this.tablero = new Tablero(controlador, sudokuModelo, -1);
+		this.tablero = tablero;
 		tablero.bloquearEdicionDeCasillas();
-		tablero.setBounds(-111, 0, 724, 450);
+		tablero.setBounds(-110, -18, 724, 468);
 		panelDeTablero.add(tablero);
 		
 		PanelInferior = new JPanel();
 		PanelInferior.setBackground(new Color(240, 240, 240));
 		PanelInferior.setBounds(0, 449, 579, 59);
 		panelDeTablero.add(PanelInferior);
+		PanelInferior.setLayout(null);
+		
+		volverAlMenu = new JButton("Volver al menú");
+		volverAlMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controlador.mostrarMenu();
+			}
+		});
+		volverAlMenu.setBounds(410, 0, 159, 48);
+		PanelInferior.add(volverAlMenu);
 		
 		
 		this.scrollPaneDeBotones = new JScrollPane();
 		scrollPaneDeBotones.setBounds(10, 75, 367, 508);
 		scrollPaneDeBotones.setBorder(null);
-		contentPane.add(scrollPaneDeBotones);
+		add(scrollPaneDeBotones);
 		scrollPaneDeBotones.getVerticalScrollBar().setUnitIncrement(16);
-		buscarSoluciones(barraDeProceso);
+		try {
+			buscarSoluciones(barraDeProceso);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		
 	}
 

@@ -52,6 +52,7 @@ public class Tablero extends JPanel {
 				casilla.setBounds(x,y,40,40);
 				casilla.setHorizontalAlignment(SwingConstants.CENTER);
 				casilla.setFont(new Font("Tahoma", Font.PLAIN, 20));
+				casilla.setBackground(colorFondoCasillas);
 				valorValido(casilla,fila,col);
 				celdaEsSelecionada(fila, col, casilla);
 				

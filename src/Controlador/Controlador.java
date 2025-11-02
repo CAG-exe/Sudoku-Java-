@@ -6,13 +6,17 @@ import javax.swing.JTextField;
 
 import Modelo.Sudoku;
 import Vista.InterfazFrame;
+import Vista.SudokuVisual;
 import Vista.Tablero;
+import Vista.VisorDeSoluciones;
 
 public class Controlador {
 	
 	private Sudoku sudokuModelo;
 	private InterfazFrame interfazFrame;
-	private Tablero tablero;
+	private Tablero tableroActual;
+	private int cantidadValoresPrefijados;
+	private SudokuVisual sudokuVisual;
 	
 	
 	public Controlador() {
@@ -27,14 +31,37 @@ public class Controlador {
 	}
 	
 	public void setTablero(Tablero tablero) {
-		this.tablero = tablero;
+		this.tableroActual = tablero;
 	}
+	
+	
+	public void mostrarSudoku() {
+		Sudoku sudokuModelo = new Sudoku();
+		sudokuVisual =  new SudokuVisual(this, sudokuModelo, 0);
+		interfazFrame.mostrarPanelSudoku(sudokuVisual);
+	}
+	
+	public void mostrarSudokuAleatorio(int cantidadValoresPrefijados) {
+		Sudoku sudokuModelo = new Sudoku();
+		sudokuVisual =  new SudokuVisual(this, sudokuModelo, cantidadValoresPrefijados);
+		interfazFrame.mostrarPanelSudoku(sudokuVisual);
+	}
+	
+	public void mostrarMenu() {
+		interfazFrame.mostrarPanelMenu();
+	}
+	
+	public void mostrarVisorDeSoluciones(Sudoku sudokuModelo, int cantidadValoresPrefijados, Tablero tablero) {
+		VisorDeSoluciones visor = new VisorDeSoluciones(this, sudokuModelo,	tablero);
+		interfazFrame.mostrarPanelSoluciones(visor);
+	}
+	
 	
 	public void actualizarValorDeCeldaEnModelo(int fila, int columna, int valor) {
 		sudokuModelo.setValorDeLaCelda(fila, columna, valor);
 		sudokuModelo.estaCompleto();
 		if(interfazFrame != null) 
-			interfazFrame.actualizarCasillasMarcadas(valor);
+			sudokuVisual.actualizarCasillasMarcadas(valor);
 			sudokuModelo.aumetarCantidadDeNumerosIngresadosEnElTablero(valor);
 		
 	}
@@ -55,13 +82,13 @@ public class Controlador {
 	}
 	
 	public void celdaDeseleccionada() {
-		tablero.restablecerColorDeFondo();
+		tableroActual.restablecerColorDeFondo();
 	}
 
 	private void colorearCeldasAfectadas(int fila, int col) {
-		tablero.colorearCuadrante(fila, col);
-		tablero.colorearFila(fila);
-		tablero.colorearColumna(col);
+		tableroActual.colorearCuadrante(fila, col);
+		tableroActual.colorearFila(fila);
+		tableroActual.colorearColumna(col);
 	}
 
 	private boolean esUnNumeroInvalido(JTextField jText, int key, boolean numeros) {
@@ -78,8 +105,8 @@ public class Controlador {
 	
 	public void mostrarSolucionIndividualEnElTablero() {
 		sudokuModelo.resolverSudoku();
-	    tablero.actualizarTableroConLaSolucion(sudokuModelo.getUnicaSolucion());
-	    tablero.bloquearEdicionDeCasillas();
+	    tableroActual.actualizarTableroConLaSolucion(sudokuModelo.getUnicaSolucion());
+	    tableroActual.bloquearEdicionDeCasillas();
 	}
 	
 	public void mostrarSolucionIndividualEnElTablero(Tablero tabla, int[][] solucion) {

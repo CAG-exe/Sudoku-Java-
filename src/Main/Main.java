@@ -2,6 +2,10 @@ package Main;
 
 import java.awt.EventQueue;
 
+import javax.swing.UIManager;
+
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
+
 import Controlador.Controlador;
 import Modelo.Sudoku;
 import Vista.InterfazFrame;
@@ -12,9 +16,14 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+				    UIManager.setLookAndFeel( new FlatMaterialLighterIJTheme() );
+				} catch( Exception ex ) {
+				    System.err.println( "Failed to initialize LaF" );
+				}
+				try {
 					Controlador controlador = new Controlador();
 					Sudoku sudokuModelo = new Sudoku();
-					InterfazFrame window = new InterfazFrame(controlador, sudokuModelo, 20);
+					InterfazFrame window = new InterfazFrame(controlador, sudokuModelo);
 					controlador.setSudoku(sudokuModelo);
 					controlador.setInterfazFrame(window);
 					

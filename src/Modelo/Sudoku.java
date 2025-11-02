@@ -6,7 +6,7 @@ import java.util.List;
 public class Sudoku {
 	private Matriz sudokuJuego;
 	private List<Matriz> solucionesDelSudokuJuego;
-	private int maxSolucionesAEncontrar = 10000;
+	private int maxSolucionesAEncontrar = 1000;
 	
 	public Sudoku() {
 		sudokuJuego = new Matriz();
