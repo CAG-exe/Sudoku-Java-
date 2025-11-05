@@ -64,6 +64,8 @@ public class Sudoku {
 
 	public void reiniciarSudoku() {
 		sudokuJuego.rellenarDeCeros();
+		solucionesDelSudokuJuego = new ArrayList<Matriz>();
+		maxSolucionesAEncontrar = 0;
 	}
 	
 	public void setMaxSolucionesAEncontrar(int maxSoluciones) {

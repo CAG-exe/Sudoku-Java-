@@ -113,7 +113,7 @@ public class Tablero extends JPanel {
     
     
 	
-	 void marcarTablero() {
+	public void marcarTablero() {
 		int[][] copia = sudoku.clonar();
 		for(int fila=0 ; fila<9 ; fila++) {
 			for(int col=0 ; col<9 ; col++) {

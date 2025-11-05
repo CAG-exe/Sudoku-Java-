@@ -36,7 +36,7 @@ public class Controlador {
 	
 	
 	public void mostrarSudoku() {
-		Sudoku sudokuModelo = new Sudoku();
+		sudokuModelo.reiniciarSudoku();
 		sudokuVisual =  new SudokuVisual(this, sudokuModelo, 0);
 		interfazFrame.mostrarPanelSudoku(sudokuVisual);
 	}
@@ -119,6 +119,7 @@ public class Controlador {
 	}
 
 	public void buscarSoluciones(Sudoku sudokuModeloActual, int cantidadValoresPrefijados, Tablero tablero) {
+		tablero.marcarTablero();
 		this.sudokuModelo = sudokuModeloActual;
 		if (cantidadValoresPrefijados >= 17) {
 			mostrarSolucionUnicaEnElTablero(tablero, sudokuModelo);
