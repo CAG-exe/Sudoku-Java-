@@ -5,12 +5,19 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import Controlador.Controlador;
 import Modelo.Sudoku;
@@ -106,8 +113,139 @@ public class Menu extends JPanel{
 		estadisticas.setFont(new Font("Arial", Font.BOLD, 18));
 		estadisticas.setBackground(color);
 		estadisticas.setBounds(425, 353, 235, 66);
+		estadisticas.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Font font = new Font("Arial", Font.BOLD, 15);
+				
+				JDialog opcionesEstadisticas = new JDialog();
+				opcionesEstadisticas.setTitle("Configuracion de Estadisticas");
+				opcionesEstadisticas.setSize(400, 600);
+				opcionesEstadisticas.getContentPane().setBackground(new Color(206, 175, 174));
+				opcionesEstadisticas.setLayout(null);
+				opcionesEstadisticas.setResizable(false);
+				
+				JLabel matriz1Label = new JLabel("Increse casillas de la primera matriz:");
+				configLabelJDialog(font, matriz1Label,0,false);
+				opcionesEstadisticas.add(matriz1Label);
+				
+				JLabel matriz2Label = new JLabel("Increse casillas de la segunda matriz:");
+				configLabelJDialog(font, matriz2Label,100,false);
+				opcionesEstadisticas.add(matriz2Label);
+				
+				JLabel matriz3Label = new JLabel("Increse casillas de la tercera matriz:");
+				configLabelJDialog(font, matriz3Label,200,false);
+				opcionesEstadisticas.add(matriz3Label);
+				
+				JTextField matriz1Field = new JTextField();
+				matriz1Field.setBounds(50, 90, 300, 30);
+				matriz1Field.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						ingresoOSoloNumeros(e);
+					}
+				});
+				opcionesEstadisticas.add(matriz1Field);
+				JTextField matriz2Field = new JTextField();
+				matriz2Field.setBounds(50, 190, 300, 30);
+				matriz2Field.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						ingresoOSoloNumeros(e);
+					}
+				});
+				opcionesEstadisticas.add(matriz2Field);
+				JTextField matriz3Field = new JTextField();
+				matriz3Field.setBounds(50, 290, 300, 30);
+				matriz3Field.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						ingresoOSoloNumeros(e);
+					}
+				});
+				
+				opcionesEstadisticas.add(matriz3Field);
+				
+				String errorText = "las casillas deben ser entre 0 y 81";
+				
+				JLabel error1Label = new JLabel(errorText);
+				configLabelJDialog(font, error1Label,0, true);
+				error1Label.setVisible(false);
+				opcionesEstadisticas.add(error1Label);
+				
+				JLabel error2Label = new JLabel(errorText);
+				configLabelJDialog(font, error2Label,100, true);
+				error2Label.setVisible(false);
+				opcionesEstadisticas.add(error2Label);
+				
+				JLabel error3Label = new JLabel(errorText);
+				configLabelJDialog(font, error3Label,200, true);
+				error3Label.setVisible(false);
+				opcionesEstadisticas.add(error3Label);
+				
+				
+				JButton estadisticasButton = new JButton("Generar Estadisticas");
+				estadisticasButton.setBounds(43, 450, 300, 50);
+				estadisticasButton.setFont(new Font("Arial", Font.BOLD, 20));
+				estadisticasButton.setBackground(color);
+				estadisticasButton.addMouseListener( new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						error1Label.setVisible(esValorvalido(matriz1Field.getText()));
+						error2Label.setVisible(esValorvalido(matriz2Field.getText()));
+						error3Label.setVisible(esValorvalido(matriz3Field.getText()));
+						if(!error1Label.isVisible() && !error2Label.isVisible() && !error3Label.isVisible()) {
+							opcionesEstadisticas.dispose();
+						}
+					}
+				});
+				opcionesEstadisticas.add(estadisticasButton);
+				opcionesEstadisticas.setModal(true);
+				opcionesEstadisticas.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				opcionesEstadisticas.setLocationRelativeTo(null);
+				opcionesEstadisticas.setVisible(true);
+			}
+
+		});
 		add(estadisticas);
 		
+
+	}
+	private void ingresoOSoloNumeros(KeyEvent e) {
+		int key = e.getKeyChar();
+		boolean numeros = key >= 48 && key <= 57;
+		if (!seTocoLaTeclaBorrar(key) && numeros == false) {
+			e.consume();
+		}
 	}
 	
+	private boolean seTocoLaTeclaBorrar(int key) {
+		return key == 8;
+	}
+	
+	private void configLabelJDialog(Font font, JLabel label, int pos, boolean error) {
+	    if (error) {
+	        label.setBounds(50, 120 + pos, 300, 30);
+	        label.setForeground(Color.RED);
+	    } else {
+	        label.setBounds(50, 50 + pos, 300, 30);
+	        label.setForeground(Color.BLACK);
+	    }
+	    label.setFont(font);
+	}
+	
+	private boolean esValorvalido(String text) {
+		try {
+			int valor = Integer.parseInt(text.trim());
+			if (valor >= 0 && valor <= 81) {
+				return false;
+			} 
+			else {
+				return true;
+			}
+		} catch (Exception e) {
+			return true;
+		}
+	}
+
 }
