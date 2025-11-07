@@ -12,10 +12,15 @@ public class Matriz {
 	private int cantDeValoresPrefijados;
 	private int maximoValorDePrefijados = 40;
 	private int minimoValorDePrefijados = 0;
+	private static Generador random;
 	
 	public Matriz() {
 		sudoku= new int[9][9];
 		rellenarDeCeros();
+	}
+	
+	public static void setGenerador(Generador g) {
+		random = g;
 	}
 
 	public void rellenarDeCeros() {
@@ -140,7 +145,7 @@ public class Matriz {
 	}
 
 	private int[] posionesAleatoria() {
-		int pos= (int) (Math.random()*81);
+		int pos= random.nextInt(sudoku.length*sudoku.length);
 		return new int[] {pos/sudoku.length,pos%sudoku.length};
 	}
 

@@ -9,6 +9,8 @@ public class Sudoku {
 	private int maxSolucionesAEncontrar;
 	
 	public Sudoku() {
+		GeneradorAleatorio generadorAleatorio = new GeneradorAleatorio();
+		Matriz.setGenerador(generadorAleatorio);
 		sudokuJuego = new Matriz();
 		solucionesDelSudokuJuego = new ArrayList<Matriz>();
 	}
