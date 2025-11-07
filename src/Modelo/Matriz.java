@@ -14,13 +14,11 @@ public class Matriz {
 	private int minimoValorDePrefijados = 0;
 	private static Generador random;
 	
-	public Matriz() {
+	public Matriz(Generador random) {
+		Matriz.random = random;
 		sudoku= new int[9][9];
 		rellenarDeCeros();
-	}
-	
-	public static void setGenerador(Generador g) {
-		random = g;
+		
 	}
 
 	public void rellenarDeCeros() {

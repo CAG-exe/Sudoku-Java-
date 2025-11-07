@@ -9,13 +9,13 @@ public class SudokuTest {
 	@Test
 	public void testConstructor() {
 		@SuppressWarnings("unused")
-		Sudoku sudoku = new Sudoku();
+		Sudoku sudoku = new Sudoku(new GeneradorAleatorio());
 	}
 	
 	@SuppressWarnings("unused")
 	@Test
 	public void getMatrizJuegoTest() {
-		Sudoku sudoku = new Sudoku();
+		Sudoku sudoku = new Sudoku(new GeneradorAleatorio());
 		Matriz matriz = sudoku.getMatrizJuego();
 	}
 	
@@ -37,7 +37,7 @@ public class SudokuTest {
 	
 	@Test
 	public void esSeguroTest() {
-		Sudoku sudoku = new Sudoku();
+		Sudoku sudoku = new Sudoku(new GeneradorAleatorio());
 		Matriz m = sudoku.getMatrizJuego();
 		testMode(m);
 		assertTrue(sudoku.esSeguro(0, 2, 4));
@@ -46,7 +46,7 @@ public class SudokuTest {
 	
 	@Test
 	public void actualizarMatrizJuegoTest() {
-		Sudoku sudoku = new Sudoku();
+		Sudoku sudoku = new Sudoku(new GeneradorAleatorio());
 		Matriz m = sudoku.getMatrizJuego();
 		testMode(m);
 		sudoku.setValorDeLaCelda(0, 2, 4);
@@ -54,7 +54,7 @@ public class SudokuTest {
 	}
 	@Test(expected = IllegalStateException.class)
     public void testGetUnicaSolucion_SinSoluciones() {
-        Sudoku sudoku = new Sudoku();
+        Sudoku sudoku = new Sudoku(new GeneradorAleatorio());
         sudoku.getUnicaSolucion(); 
     }
 }

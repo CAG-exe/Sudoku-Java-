@@ -11,7 +11,7 @@ public class SolucionadorDeSudoku {
 	
 	boolean encontrarUnaSolucionRecursivo(Matriz sudokuSolucion, int fila, int columna) {
 		if(sudokuSolucion.matrizCompleta()) {
-			Matriz copiaSolucion = new Matriz();
+			Matriz copiaSolucion = new Matriz(new GeneradorAleatorio());
 			int[][] matrizSudokuClonada = sudokuSolucion.clonar();
 			copiaSolucion.setMatrizClonada(matrizSudokuClonada);
 			solucionesDelSudokuJuego.add(copiaSolucion);
@@ -54,7 +54,7 @@ public class SolucionadorDeSudoku {
 		}
 		
 		if(sudokuSolucion.matrizCompleta()) {
-			Matriz copiaSolucion = new Matriz();
+			Matriz copiaSolucion = new Matriz(new GeneradorAleatorio());
 			int[][] matrizSudokuClonada = sudokuSolucion.clonar();
 			copiaSolucion.setMatrizClonada(matrizSudokuClonada);
 			solucionesDelSudokuJuego.add(copiaSolucion);

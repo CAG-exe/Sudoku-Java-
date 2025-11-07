@@ -7,11 +7,11 @@ public class Sudoku {
 	private Matriz sudokuJuego;
 	private List<Matriz> solucionesDelSudokuJuego;
 	private int maxSolucionesAEncontrar;
+	private Generador generadorAleatorio;
 	
-	public Sudoku() {
-		GeneradorAleatorio generadorAleatorio = new GeneradorAleatorio();
-		Matriz.setGenerador(generadorAleatorio);
-		sudokuJuego = new Matriz();
+	public Sudoku(Generador generadorAleatorio) {
+		this.generadorAleatorio = generadorAleatorio;
+		sudokuJuego = new Matriz(generadorAleatorio);
 		solucionesDelSudokuJuego = new ArrayList<Matriz>();
 	}
 	
@@ -24,7 +24,7 @@ public class Sudoku {
 	}
 	
 	public void resolverSudoku() {
-		 Matriz sudokuSolucion = new Matriz();
+		 Matriz sudokuSolucion = new Matriz(generadorAleatorio);
 		 int[][] matrizSudokuClonada = sudokuJuego.clonar();
 		 sudokuSolucion.setMatrizClonada(matrizSudokuClonada);
 		 int fila = 0;
@@ -48,11 +48,10 @@ public class Sudoku {
 	}
 
 	public int[][] getUnicaSolucion() {
-		try {
-			return solucionesDelSudokuJuego.get(0).clonar();
-		} catch (IndexOutOfBoundsException e) {
-			throw new IllegalStateException("No hay soluciones disponibles.");
+		if (solucionesDelSudokuJuego.size() == 0) {
+			throw new IllegalStateException("No hay soluciones para el Sudoku ingresado");
 		}
+		return solucionesDelSudokuJuego.get(0).clonar();
 	}
 
 	public List<Matriz> getSoluciones() {

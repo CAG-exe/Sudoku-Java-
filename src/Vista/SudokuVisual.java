@@ -34,7 +34,7 @@ public class SudokuVisual extends JPanel {
 	public void iniciar() {
 		setLayout(null);
 		tablero = new Tablero(controlador, sudokuModelo, cantidadValoresPrefijados);
-		tablero.setBounds(0, -12, 800, 505);
+		tablero.setBounds(0, 11, 800, 479);
 		this.add(tablero);
 		
 		JButton buscarSoluciones = new JButton("Buscar Soluciones");
@@ -94,5 +94,10 @@ public class SudokuVisual extends JPanel {
 				}
 			}
 		return -1;
+	}
+
+	public void mostrarMensajeDeSudokuSinSoluciones() {
+		Component frame = null;
+		JOptionPane.showMessageDialog(frame, "No se encontró ninguna solución para el Sudoku ingresado.", "", JOptionPane.ERROR_MESSAGE);
 	}
 }
