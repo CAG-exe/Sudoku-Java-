@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 import Controlador.Controlador;
 import Modelo.Sudoku;
@@ -14,11 +15,14 @@ import java.awt.Component;
 
 public class SudokuVisual extends JPanel {
 
+	public JProgressBar barraDeProceso;
+	
 	private static final long serialVersionUID = 1L;
 	private Controlador controlador;
 	private Sudoku sudokuModelo;
 	private int cantidadValoresPrefijados;
 	private Tablero tablero;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -37,10 +41,16 @@ public class SudokuVisual extends JPanel {
 		tablero.setBounds(0, 11, 800, 479);
 		this.add(tablero);
 		
+		barraDeProceso = new JProgressBar();
+		barraDeProceso.setSize(294, 27);
+		barraDeProceso.setLocation(254, 507);
+		add(barraDeProceso);
+		
+		
 		JButton buscarSoluciones = new JButton("Buscar Soluciones");
 		buscarSoluciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controlador.buscarSoluciones(sudokuModelo, cantidadValoresPrefijados, tablero);
+				controlador.buscarSoluciones(cantidadValoresPrefijados, tablero);
 			}
 		});
 		buscarSoluciones.setBounds(42, 493, 153, 52);

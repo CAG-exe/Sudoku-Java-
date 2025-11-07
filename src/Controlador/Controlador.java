@@ -7,6 +7,7 @@ import javax.swing.JTextField;
 
 import Modelo.Sudoku;
 import Vista.InterfazFrame;
+import Vista.SimulacionBusquedaDeUnaSolucion;
 import Vista.SudokuVisual;
 import Vista.Tablero;
 import Vista.VisorDeSoluciones;
@@ -21,9 +22,9 @@ public class Controlador {
 	
 	private Sudoku sudokuModelo;
 	private InterfazFrame interfazFrame;
-	private Tablero tableroActual;
 	private int cantidadValoresPrefijados;
 	private SudokuVisual sudokuVisual;
+	private Tablero tableroDeSudoku;
 	
 	
 	public Controlador() {
@@ -38,7 +39,7 @@ public class Controlador {
 	}
 	
 	public void setTablero(Tablero tablero) {
-		this.tableroActual = tablero;
+		this.tableroDeSudoku = tablero;
 	}
 	
 	
@@ -60,12 +61,7 @@ public class Controlador {
 		sudokuModelo.reiniciarSudoku();
 		interfazFrame.mostrarPanelMenu();
 	}
-	
-	public void mostrarVisorDeSoluciones(Sudoku sudokuModeloActual, int cantidadValoresPrefijados, Tablero tablero, int MAX_SOLUCIONES) {
-		sudokuModeloActual.setMaxSolucionesAEncontrar(MAX_SOLUCIONES);
-		VisorDeSoluciones visor = new VisorDeSoluciones(this, sudokuModeloActual,tablero);
-		interfazFrame.mostrarPanelSoluciones(visor);
-	}
+
 	
 	
 	public void actualizarValorDeCeldaEnModelo(int fila, int columna, int valor) {
@@ -92,13 +88,13 @@ public class Controlador {
 	}
 	
 	public void celdaDeseleccionada() {
-		tableroActual.restablecerColorDeFondo();
+		tableroDeSudoku.restablecerColorDeFondo();
 	}
 
 	private void colorearCeldasAfectadas(int fila, int col) {
-		tableroActual.colorearCuadrante(fila, col);
-		tableroActual.colorearFila(fila);
-		tableroActual.colorearColumna(col);
+		tableroDeSudoku.colorearCuadrante(fila, col);
+		tableroDeSudoku.colorearFila(fila);
+		tableroDeSudoku.colorearColumna(col);
 	}
 
 	private boolean esUnNumeroInvalido(JTextField jText, int key, boolean numeros) {
@@ -113,14 +109,11 @@ public class Controlador {
 		return key == 48;
 	}
 	
-	public void mostrarSolucionEnElTablero(Tablero tabla, int[][] solucion) {
-		tabla.actualizarTableroConLaSolucion(solucion);
-		tabla.bloquearEdicionDeCasillas();
-	}
 
-	public void buscarSoluciones(Sudoku sudokuModeloActual, int cantidadValoresPrefijados, Tablero tablero) {
+
+	public void buscarSoluciones(int cantidadValoresPrefijados, Tablero tablero) {
+		this.tableroDeSudoku = tablero;
 		tablero.marcarTablero();
-		this.sudokuModelo = sudokuModeloActual;
 		if (cantidadValoresPrefijados >= 17) {
 			buscarSolucionUnicaEnElTablero(tablero, sudokuModelo);
 		} else {
@@ -128,23 +121,32 @@ public class Controlador {
 			while (cantidadDeSoluciones <= 0) {
 				cantidadDeSoluciones = sudokuVisual.preguntarCantidadDeSoluciones();
 			}
-			mostrarVisorDeSoluciones(sudokuModeloActual, cantidadValoresPrefijados, tablero, cantidadDeSoluciones);
+			mostrarVisorDeSoluciones(sudokuModelo, cantidadValoresPrefijados, tablero, cantidadDeSoluciones);
 		}
 		
 	}
 
 	private void buscarSolucionUnicaEnElTablero(Tablero tablero, Sudoku sudokuModeloActual) {
-		sudokuModeloActual.resolverSudoku();
-		
-		if (sudokuModeloActual.getSoluciones().isEmpty()) {
-			sudokuVisual.mostrarMensajeDeSudokuSinSoluciones();
-			return;
-		}
-		
-		mostrarSolucionEnElTablero(tablero, sudokuModeloActual.getUnicaSolucion());
-		
-		
+		SimulacionBusquedaDeUnaSolucion simulacion = new SimulacionBusquedaDeUnaSolucion(sudokuVisual.barraDeProceso,sudokuModeloActual,this);
+		simulacion.execute();
 	}
+
+	public void mostrarMensajeDeSudokuSinSoluciones() {
+		sudokuVisual.mostrarMensajeDeSudokuSinSoluciones();
+	}
+	
+	public void mostrarSolucionEnElTablero(int[][] solucion) {
+		tableroDeSudoku.actualizarTableroConLaSolucion(solucion);
+		tableroDeSudoku.bloquearEdicionDeCasillas();
+	}
+	
+	
+	public void mostrarVisorDeSoluciones(Sudoku sudokuModeloActual, int cantidadValoresPrefijados, Tablero tablero, int MAX_SOLUCIONES) {
+		sudokuModeloActual.setMaxSolucionesAEncontrar(MAX_SOLUCIONES);
+		VisorDeSoluciones visor = new VisorDeSoluciones(this, sudokuModeloActual,tablero);
+		interfazFrame.mostrarPanelSoluciones(visor);
+	}
+	
 	public void generarEstadisticas(int val1, int val2, int val3) {   
 	    int[] valores = {val1, val2, val3};
 	    JFreeChart grafico = crearGrafico(valores);

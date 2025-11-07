@@ -19,5 +19,9 @@ public class GeneradorPrefijado implements Generador {
 		indiceActual++;
 		return numero;
 	}
+	
+	public int nextNumeroPrefijado() {
+		return nextInt(9) + 1;
+	}
 
 }

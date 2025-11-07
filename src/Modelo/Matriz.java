@@ -11,7 +11,7 @@ public class Matriz {
 	private int[][] sudokuConValoresPrefijados;
 	private int cantDeValoresPrefijados;
 	private int maximoValorDePrefijados = 40;
-	private int minimoValorDePrefijados = 0;
+	private int minimoValorDePrefijados = 15;
 	private static Generador random;
 	
 	public Matriz(Generador random) {
@@ -133,7 +133,7 @@ public class Matriz {
 	private void buscarCasillaYmarcar() {
 		boolean marcar = true;
 		while(marcar) {
-			int numA = (int)(Math.random()*9)+1;
+			int numA = random.nextInt(9)+1;
 			int[] pos = posionesAleatoria();
 			if(getValorEnMatriz(pos[0], pos[1])==0  && esSeguro(pos[0],pos[1],numA)) {
 				setMatriz(pos[0],pos[1],numA);
@@ -163,16 +163,6 @@ public class Matriz {
 	 
 	 public int getCantDeValoresPrefijados() {
 		 return cantDeValoresPrefijados;
-	 }
-
-	 public void string() {
-		for(int i=0;i<sudoku.length;i++) {
-			for(int j=0;j<sudoku.length;j++) {
-				System.out.print(sudoku[i][j]+" ");
-			}
-			System.out.println();
-		}
-		System.out.println();
 	 }
 
 	 public void aumetarCantidadDeNumerosIngresadosEnElTablero(int valor) {

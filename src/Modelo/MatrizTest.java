@@ -2,51 +2,53 @@ package Modelo;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class MatrizTest {
+	
+	private Matriz matriz;
+
+	@Before
+	public void GenerarMatriz() {
+		this.matriz = new Matriz(new GeneradorPrefijado(new int[] {}));
+	}
 
 	@Test
 	public void ingresarValorValido() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		testMode(m);
-		boolean valor = m.esSeguro(0, 0, 5);
+		testMode(matriz);
+		boolean valor = matriz.esSeguro(0, 0, 5);
 		assertTrue(valor);
 	}
 	
 	@Test
 	public void ingresarValorInvalido() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		testMode(m);
-		boolean valor = m.esSeguro(0, 0, 1);
+		testMode(matriz);
+		boolean valor = matriz.esSeguro(0, 0, 1);
 		assertFalse(valor);
 	}
 	
 	@Test
 	public void ingresarValorInvalidoEnSubcasillas() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		testMode(m);
-		boolean valor = m.esSeguro(0, 0, 9);
+		testMode(matriz);
+		boolean valor = matriz.esSeguro(0, 0, 9);
 		assertFalse(valor);
 	}
 	
 	@Test (expected= IllegalArgumentException.class)
 	public void ingresarValorNegativo() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		assertTrue(m.esSeguro(0, 0, -1));
+		assertTrue(matriz.esSeguro(0, 0, -1));
 	}
 	
 	@Test (expected= IllegalArgumentException.class)
 	public void ingresarValorMuyAlto() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		assertTrue(m.esSeguro(0, 0, 10));
+		assertTrue(matriz.esSeguro(0, 0, 10));
 	}
 	
 	@Test
 	public void ingresarValorEnCasillaDeIgualValor() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		testMode(m);
-		boolean valor = m.esSeguro(0, 1, 6);
+		testMode(matriz);
+		boolean valor = matriz.esSeguro(0, 1, 6);
 		assertFalse(valor);
 	} 
 	
@@ -55,48 +57,42 @@ public class MatrizTest {
 	
 	@Test
 	public void setMatrizTest() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		assertFalse(m.getValorEnMatriz(1, 4) == 6);
-		m.setMatriz(1, 4, 6);
+		assertFalse(matriz.getValorEnMatriz(1, 4) == 6);
+		matriz.setMatriz(1, 4, 6);
 		
-		assertTrue(m.getValorEnMatriz(1, 4) == 6);
+		assertTrue(matriz.getValorEnMatriz(1, 4) == 6);
 	}
 	
 	
 	@Test (expected = IllegalArgumentException.class)
 	public void setMatrizConPosicion1NegativoTest() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		m.setMatriz(-1, 4, 6);
+		matriz.setMatriz(-1, 4, 6);
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
 	public void setMatrizConPosicion2NegativoTest() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		m.setMatriz(1, -4, 6);
+		matriz.setMatriz(1, -4, 6);
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
 	public void setMatrizConPosicion1PasadaTest() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		m.setMatriz(1123, 1, 6);
+		matriz.setMatriz(1123, 1, 6);
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
 	public void setMatrizConPosicion2PasadaTest() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		m.setMatriz(1, 120, 6);
+		matriz.setMatriz(1, 120, 6);
 	}
 	
 	@Test
 	public void TestClonar() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		testMode(m);
+		testMode(matriz);
 		Matriz c = new Matriz(new GeneradorAleatorio());
 		boolean igualdad = true;
-		c.setMatrizClonada(m.clonar());
+		c.setMatrizClonada(matriz.clonar());
 		for(int fila=0;fila<9;fila++) {
 			for(int col=0;col<9;col++) {
-				igualdad &= (c.getValorEnMatriz(fila, col) == m.getValorEnMatriz(fila, col));
+				igualdad &= (c.getValorEnMatriz(fila, col) == matriz.getValorEnMatriz(fila, col));
 			}
 		}
 		assertTrue(igualdad);
@@ -104,13 +100,13 @@ public class MatrizTest {
 	
 	@Test
 	public void marcarCasillas() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
+		Matriz mat = new Matriz(new GeneradorAleatorio());
 		int valorEsperado = 20;
-		m.marcarCasillasConNumerosValidos(20);
+		mat.marcarCasillasConNumerosValidos(20);
 		int cont=0;
 		for(int fila=0;fila<9;fila++) {
 			for(int col=0;col<9;col++) {
-				if(m.getValorEnMatriz(fila, col) > 0)
+				if(mat.getValorEnMatriz(fila, col) > 0)
 					cont++;
 			}
 		}
@@ -119,93 +115,80 @@ public class MatrizTest {
 	
 	@Test (expected= IllegalArgumentException.class)
 	public void marcarExcesoDeCasillas() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		m.marcarCasillasConNumerosValidos(50);
+		matriz.marcarCasillasConNumerosValidos(50);
 	}
 	
 	@Test (expected= IllegalArgumentException.class)
 	public void marcarPoquisimasDeCasillas() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		m.marcarCasillasConNumerosValidos(10);
+		matriz.marcarCasillasConNumerosValidos(10);
 	}
 	
 	@Test (expected= IllegalArgumentException.class)
 	public void getValorEnMatrizFueraDeRangoPosicion1() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		m.getValorEnMatriz(1283, 2);
+		matriz.getValorEnMatriz(1283, 2);
 	}
 	
 	@Test (expected= IllegalArgumentException.class)
 	public void getValorEnMatrizFueraDeRangoPosicion2() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		m.getValorEnMatriz(1, 212);
+		matriz.getValorEnMatriz(1, 212);
 	}
 	
 	
 	@Test (expected= IllegalArgumentException.class)
 	public void getValorEnMatrizPosicion1Negativo() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		m.getValorEnMatriz(-2, 2);
+		matriz.getValorEnMatriz(-2, 2);
 	}
 	
 	@Test (expected= IllegalArgumentException.class)
 	public void getValorEnMatrizPosicion2Negativo() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		m.getValorEnMatriz(2, -2);
+		matriz.getValorEnMatriz(2, -2);
 	}
 	
 	@Test
 	public void matrizEstaCompleta() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		testMode(m);
-		m.setMatriz(0, 0, 5);
-		m.setMatriz(0, 7, 9);
-		m.setMatriz(8, 0, 9);
-		boolean completa= m.matrizCompleta();
+		testMode(matriz);
+		matriz.setMatriz(0, 0, 5);
+		matriz.setMatriz(0, 7, 9);
+		matriz.setMatriz(8, 0, 9);
+		boolean completa= matriz.matrizCompleta();
 		assertTrue(completa);
 		
 	}
 	
 	@Test
 	public void matrizEstaIncompleta() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		testMode(m);
-		boolean completa= m.matrizCompleta();
+		testMode(matriz);
+		boolean completa= matriz.matrizCompleta();
 		assertFalse(completa);
 		
 	}
 	
 	@Test
 	public void casillaMarcadaTest() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		testMode(m);
-		assertTrue(m.casillaMarcada(0, 2));
-		assertFalse(m.casillaMarcada(0, 0));
+		testMode(matriz);
+		assertTrue(matriz.casillaMarcada(0, 2));
+		assertFalse(matriz.casillaMarcada(0, 0));
 	}
 	
 	@Test (expected= IllegalArgumentException.class)
 	public void casillaMarcadaPosicion1FueraDeRangoTest() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		m.casillaMarcada(1283, 2);
+		matriz.casillaMarcada(1283, 2);
 	}
 	
 	@Test (expected= IllegalArgumentException.class)
 	public void casillaMarcadaPosicion2FueraDeRangoTest() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		m.casillaMarcada(1, 212);
+		matriz.casillaMarcada(1, 212);
 	}
 	
 	
 	@Test (expected= IllegalArgumentException.class)
 	public void casillaMarcadaPosicion1NegativaTest() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		m.casillaMarcada(-2, 2);
+		matriz.casillaMarcada(-2, 2);
 	}
 	
 	@Test (expected= IllegalArgumentException.class)
 	public void casillaMarcadaPosicion2NegativaTest() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
-		m.casillaMarcada(2, -2);
+		matriz.casillaMarcada(2, -2);
 	}
 	
 	private void testMode(Matriz m) {
@@ -222,10 +205,9 @@ public class MatrizTest {
 	}
 	
 	public void getCantDeValoresPrefijadosTest() {
-		Matriz m = new Matriz(new GeneradorAleatorio());
 		int esperado = 25;
-		m.marcarCasillasConNumerosValidos(25);
-		assertEquals(esperado, m.getCantDeValoresPrefijados());
+		matriz.marcarCasillasConNumerosValidos(25);
+		assertEquals(esperado, matriz.getCantDeValoresPrefijados());
 	}
 	
 }
