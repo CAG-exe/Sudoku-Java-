@@ -153,11 +153,17 @@ public class Controlador {
 	private JFreeChart crearGrafico(int[] valores) {
 	    DefaultCategoryDataset datos = new DefaultCategoryDataset();
 	    
-	    long empiezaTiempo = System.currentTimeMillis();
+	    
+	    String tiempo = "Tiempo (ms)";
 
-	    datos.addValue(empiezaTiempo, "Tiempo (ms)", "Casillas: 30");
-	    datos.addValue(empiezaTiempo, "Tiempo (ms)", "Casillas: 40");
-	    datos.addValue(empiezaTiempo, "Tiempo (ms)", "Casillas: 50");
+	    for (int i = 0; i < valores.length; i++) {
+	    int casillas = valores[i];
+	    String casilla = casillas + "";
+		long empiezaTiempo = System.currentTimeMillis();
+	    datos.addValue(empiezaTiempo, tiempo, casilla);
+	    datos.addValue(empiezaTiempo, tiempo, casilla);
+	    datos.addValue(empiezaTiempo, tiempo, casilla);
+	    }
 
 	    JFreeChart graficoDeBarras = ChartFactory.createBarChart3D(
 	        "PRUEBA",
