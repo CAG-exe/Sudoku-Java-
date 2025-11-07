@@ -191,12 +191,21 @@ public class Menu extends JPanel{
 				estadisticasButton.addMouseListener( new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						error1Label.setVisible(esValorvalido(matriz1Field.getText()));
-						error2Label.setVisible(esValorvalido(matriz2Field.getText()));
-						error3Label.setVisible(esValorvalido(matriz3Field.getText()));
-						if(!error1Label.isVisible() && !error2Label.isVisible() && !error3Label.isVisible()) {
-							opcionesEstadisticas.dispose();
-						}
+						boolean error1 = esValorvalido(matriz1Field.getText());
+					    boolean error2 = esValorvalido(matriz2Field.getText());
+					    boolean error3 = esValorvalido(matriz3Field.getText());
+
+					    error1Label.setVisible(error1);
+					    error2Label.setVisible(error2);
+					    error3Label.setVisible(error3);
+					    
+					    if(!error1 && !error2 && !error3) {
+						int valor1 = Integer.parseInt(matriz1Field.getText().trim());
+				        int valor2 = Integer.parseInt(matriz2Field.getText().trim());
+				        int valor3 = Integer.parseInt(matriz3Field.getText().trim());			    
+						opcionesEstadisticas.dispose();
+						controlador.generarEstadisticas(valor1, valor2, valor3);
+					    }
 					}
 				});
 				opcionesEstadisticas.add(estadisticasButton);

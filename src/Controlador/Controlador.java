@@ -1,5 +1,6 @@
 package Controlador;
 
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
@@ -9,6 +10,12 @@ import Vista.InterfazFrame;
 import Vista.SudokuVisual;
 import Vista.Tablero;
 import Vista.VisorDeSoluciones;
+import javax.swing.JFrame;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.ChartFactory;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.chart.plot.PlotOrientation;
 
 public class Controlador {
 	
@@ -136,6 +143,42 @@ public class Controlador {
 	private void mostrarSolucionUnicaEnElTablero(Tablero tablero, Sudoku sudokuModeloActual) {
 		sudokuModeloActual.resolverSudoku();
 		mostrarSolucionEnElTablero(tablero, sudokuModeloActual.getUnicaSolucion());
+	}
+	public void generarEstadisticas(int val1, int val2, int val3) {   
+	    
+	    JFreeChart grafico = crearGraficoDePrueba();
+	    mostrarGrafico(grafico);
+
+	}
+	private JFreeChart crearGraficoDePrueba() {
+	    DefaultCategoryDataset datos = new DefaultCategoryDataset();
+
+	    datos.addValue(1200, "Tiempo (ms)", "Casillas: 30");
+	    datos.addValue(800, "Tiempo (ms)", "Casillas: 40");
+	    datos.addValue(500, "Tiempo (ms)", "Casillas: 50");
+
+	    JFreeChart graficoDeBarras = ChartFactory.createBarChart3D(
+	        "PRUEBA",
+	        "Dificultad por Cantidad de Casillas Prefijadas",
+	        "Tiempo promedio de resolución (milisegundos)",
+	        datos,
+	        PlotOrientation.VERTICAL,
+	        true, true, false
+	    );
+
+	    return graficoDeBarras;
+	}
+
+	public void mostrarGrafico(JFreeChart chart) {
+	    ChartPanel panel = new ChartPanel(chart);
+	    panel.setPreferredSize(new Dimension(700, 500));
+	    panel.setMouseWheelEnabled(true);
+	    JFrame frameDelGrafico = new JFrame("Resultados de Estadísticas");
+	    frameDelGrafico.setContentPane(panel);
+	    frameDelGrafico.pack();
+	    frameDelGrafico.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	    frameDelGrafico.setVisible(true);
+	    frameDelGrafico.repaint();
 	}
 	
 }
