@@ -113,14 +113,6 @@ public class VisorDeSoluciones extends JPanel {
 		volverAlMenu.setBounds(410, 0, 159, 48);
 		PanelInferior.add(volverAlMenu);
 		
-		JButton BotonDeGuardarDatos = new JButton("Guardar Datos");
-		BotonDeGuardarDatos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		BotonDeGuardarDatos.setBounds(10, 0, 159, 48);
-		PanelInferior.add(BotonDeGuardarDatos);
-		
 		
 		this.scrollPaneDeBotones = new JScrollPane();
 		scrollPaneDeBotones.setBounds(10, 75, 367, 508);
