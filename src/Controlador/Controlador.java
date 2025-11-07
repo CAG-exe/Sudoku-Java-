@@ -145,7 +145,7 @@ public class Controlador {
 		mostrarSolucionEnElTablero(tablero, sudokuModeloActual.getUnicaSolucion());
 	}
 	public void generarEstadisticas(int val1, int val2, int val3) {   
-	    
+	    int[] valores = {val1, val2, val3};
 	    JFreeChart grafico = crearGraficoDePrueba();
 	    mostrarGrafico(grafico);
 
