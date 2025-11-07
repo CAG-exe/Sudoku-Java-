@@ -161,8 +161,6 @@ public class Controlador {
 	    String casilla = casillas + "";
 		long empiezaTiempo = System.currentTimeMillis();
 	    datos.addValue(empiezaTiempo, tiempo, casilla);
-	    datos.addValue(empiezaTiempo, tiempo, casilla);
-	    datos.addValue(empiezaTiempo, tiempo, casilla);
 	    }
 
 	    JFreeChart graficoDeBarras = ChartFactory.createBarChart3D(
