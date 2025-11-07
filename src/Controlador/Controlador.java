@@ -146,16 +146,18 @@ public class Controlador {
 	}
 	public void generarEstadisticas(int val1, int val2, int val3) {   
 	    int[] valores = {val1, val2, val3};
-	    JFreeChart grafico = crearGraficoDePrueba();
+	    JFreeChart grafico = crearGrafico(valores);
 	    mostrarGrafico(grafico);
 
 	}
-	private JFreeChart crearGraficoDePrueba() {
+	private JFreeChart crearGrafico(int[] valores) {
 	    DefaultCategoryDataset datos = new DefaultCategoryDataset();
+	    
+	    long empiezaTiempo = System.currentTimeMillis();
 
-	    datos.addValue(1200, "Tiempo (ms)", "Casillas: 30");
-	    datos.addValue(800, "Tiempo (ms)", "Casillas: 40");
-	    datos.addValue(500, "Tiempo (ms)", "Casillas: 50");
+	    datos.addValue(empiezaTiempo, "Tiempo (ms)", "Casillas: 30");
+	    datos.addValue(empiezaTiempo, "Tiempo (ms)", "Casillas: 40");
+	    datos.addValue(empiezaTiempo, "Tiempo (ms)", "Casillas: 50");
 
 	    JFreeChart graficoDeBarras = ChartFactory.createBarChart3D(
 	        "PRUEBA",
