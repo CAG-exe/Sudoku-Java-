@@ -31,10 +31,15 @@ public class SimulacionBusqueda extends SwingWorker<List<Matriz>, List<Matriz>> 
 		barra.setIndeterminate(true);
 		sudoku.resolverSudoku();
 		this.soluciones = sudoku.getSoluciones();
+		System.out.println(soluciones.size());
 		return soluciones;
 	}
 	@Override
 	public void done() {
+		if(isCancelled()) {
+            return;
+        }
+		
 		if(soluciones.size()>0) {
 			this.texto.setText("    ¡ENCONTRADOS!");
 			visorDeSoluciones.crearBotonesDeSoluciones(soluciones);

@@ -33,6 +33,11 @@ public class SimulacionBusquedaDeUnaSolucion  extends SwingWorker<List<Matriz>, 
 	
 	@Override
 	public void done() {
+		if (isCancelled()) {
+			barra.setIndeterminate(false);
+			return;
+		}
+		
 		barra.setIndeterminate(false);
 		if(this.soluciones.isEmpty()) {
 			controlador.mostrarMensajeDeSudokuSinSoluciones();

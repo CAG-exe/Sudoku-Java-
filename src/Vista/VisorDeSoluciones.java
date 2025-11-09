@@ -29,7 +29,6 @@ public class VisorDeSoluciones extends JPanel {
 	private Tablero tablero;
 	private JLabel TextBuscando;
 	private JScrollPane scrollPaneDeBotones;
-	private int valoresPrefijados;
 	private JPanel PanelInferior;
 	private JLabel tiempo;
 	private int segundosTranscurridos;
@@ -107,7 +106,7 @@ public class VisorDeSoluciones extends JPanel {
 		volverAlMenu = new JButton("Volver al menú");
 		volverAlMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controlador.mostrarMenu();
+				controlador.solicitudMostrarMenu();
 			}
 		});
 		volverAlMenu.setBounds(410, 0, 159, 48);
@@ -120,19 +119,14 @@ public class VisorDeSoluciones extends JPanel {
 		add(scrollPaneDeBotones);
 		scrollPaneDeBotones.getVerticalScrollBar().setUnitIncrement(16);
 		try {
-			buscarSoluciones(barraDeProceso);
+			controlador.solicitarBuscarSolucionesMultiples(barraDeProceso,TextBuscando,this);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 		
 	}
+	
 
-	private void buscarSoluciones(JProgressBar barraDeProceso) throws Exception {
-		SimulacionBusqueda busqueda = new SimulacionBusqueda(barraDeProceso, sudoku, TextBuscando,this);
-		busqueda.execute();
-	}
-	
-	
 	public void crearBotonesDeSoluciones(List<Matriz> soluciones) {
 		PanelDeBotones panelDeBotones = new PanelDeBotones(scrollPaneDeBotones, soluciones,controlador,tablero);
 		panelDeBotones.setBorder(new EmptyBorder(10, 10, 10, 10));

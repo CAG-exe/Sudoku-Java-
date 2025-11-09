@@ -1,17 +1,22 @@
 package Controlador;
 
 import java.awt.Dimension;
+import java.awt.TextArea;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
 
 import Modelo.Sudoku;
 import Vista.InterfazFrame;
+import Vista.SimulacionBusqueda;
 import Vista.SimulacionBusquedaDeUnaSolucion;
 import Vista.SudokuVisual;
 import Vista.Tablero;
 import Vista.VisorDeSoluciones;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JProgressBar;
+
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.ChartFactory;
@@ -22,9 +27,10 @@ public class Controlador {
 	
 	private Sudoku sudokuModelo;
 	private InterfazFrame interfazFrame;
-	private int cantidadValoresPrefijados;
 	private SudokuVisual sudokuVisual;
 	private Tablero tableroDeSudoku;
+	private SimulacionBusquedaDeUnaSolucion simulacionBusquedaUnica;
+	private SimulacionBusqueda simulacionBusquedaMultiple;
 	
 	
 	public Controlador() {
@@ -56,6 +62,22 @@ public class Controlador {
 		}
 		interfazFrame.mostrarPanelSudoku(sudokuVisual);
 	}
+	
+	public void solicitudMostrarMenu() {
+		cancelarTodasLasBusquedas();
+		mostrarMenu();
+	}
+
+	private void cancelarTodasLasBusquedas() {
+		if (simulacionBusquedaUnica != null && !simulacionBusquedaUnica.isDone()) {
+			simulacionBusquedaUnica.cancel(true);
+		}
+		
+		if (simulacionBusquedaMultiple != null && !simulacionBusquedaMultiple.isDone()) {
+			simulacionBusquedaMultiple.cancel(true);
+		}
+	}
+	
 	
 	public void mostrarMenu() {
 		sudokuModelo.reiniciarSudoku();
@@ -111,11 +133,11 @@ public class Controlador {
 	
 
 
-	public void buscarSoluciones(int cantidadValoresPrefijados, Tablero tablero) {
+	public void solicitarBuscarSoluciones(int cantidadValoresPrefijados, Tablero tablero, JProgressBar barraDeProceso) {
 		this.tableroDeSudoku = tablero;
 		tablero.marcarTablero();
 		if (cantidadValoresPrefijados >= 17) {
-			buscarSolucionUnicaEnElTablero(tablero, sudokuModelo);
+			buscarSolucionUnicaEnElTablero(sudokuModelo, barraDeProceso);
 		} else {
 			int cantidadDeSoluciones = sudokuVisual.preguntarCantidadDeSoluciones();
 			while (cantidadDeSoluciones <= 0) {
@@ -126,11 +148,21 @@ public class Controlador {
 		
 	}
 
-	private void buscarSolucionUnicaEnElTablero(Tablero tablero, Sudoku sudokuModeloActual) {
-		SimulacionBusquedaDeUnaSolucion simulacion = new SimulacionBusquedaDeUnaSolucion(sudokuVisual.barraDeProceso,sudokuModeloActual,this);
-		simulacion.execute();
+	private void buscarSolucionUnicaEnElTablero(Sudoku sudokuModeloActual,JProgressBar barraDeProceso) {
+		this.simulacionBusquedaUnica = new SimulacionBusquedaDeUnaSolucion(barraDeProceso,sudokuModeloActual,this);
+		simulacionBusquedaUnica.execute();
 	}
-
+	
+	public void solicitarBuscarSolucionesMultiples(JProgressBar barraDeProceso, JLabel textBuscado, VisorDeSoluciones visor) throws Exception {
+		buscarSolucionesMultiples(barraDeProceso, textBuscado, visor);
+	}
+	
+	private void buscarSolucionesMultiples(JProgressBar barraDeProceso, JLabel textBuscado, VisorDeSoluciones visor) throws Exception {
+		this.simulacionBusquedaMultiple = new SimulacionBusqueda(barraDeProceso, sudokuModelo, textBuscado,visor);
+		simulacionBusquedaMultiple.execute();
+	}
+	
+	
 	public void mostrarMensajeDeSudokuSinSoluciones() {
 		sudokuVisual.mostrarMensajeDeSudokuSinSoluciones();
 	}
@@ -191,5 +223,13 @@ public class Controlador {
 	    frameDelGrafico.setVisible(true);
 	    frameDelGrafico.repaint();
 	}
+
+	public void buscarSolucionUnica(JProgressBar barraDeProceso, JLabel textBuscando,
+			VisorDeSoluciones visorDeSoluciones) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 	
 }

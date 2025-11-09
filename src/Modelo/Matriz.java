@@ -172,6 +172,10 @@ public class Matriz {
 			}
 			cantDeValoresPrefijados++;
 	 }
+
+	 public void reiniciarCantidadDeNumerosIngresadosEnElTablero() {
+		 cantDeValoresPrefijados = 0;
+	 }
 	 
 	 
 	

@@ -15,7 +15,7 @@ import java.awt.Component;
 
 public class SudokuVisual extends JPanel {
 
-	public JProgressBar barraDeProceso;
+	private JProgressBar barraDeProceso;
 	
 	private static final long serialVersionUID = 1L;
 	private Controlador controlador;
@@ -50,7 +50,7 @@ public class SudokuVisual extends JPanel {
 		JButton buscarSoluciones = new JButton("Buscar Soluciones");
 		buscarSoluciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controlador.buscarSoluciones(cantidadValoresPrefijados, tablero);
+				controlador.solicitarBuscarSoluciones(cantidadValoresPrefijados, tablero, barraDeProceso);
 			}
 		});
 		buscarSoluciones.setBounds(42, 493, 153, 52);
@@ -59,7 +59,7 @@ public class SudokuVisual extends JPanel {
 		JButton volverAlMenu = new JButton("Volver");
 		volverAlMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controlador.mostrarMenu();
+				controlador.solicitudMostrarMenu();
 			}
 		});
 		volverAlMenu.setBounds(612, 493, 153, 52);
