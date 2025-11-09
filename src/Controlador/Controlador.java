@@ -162,8 +162,10 @@ public class Controlador {
 	    for (int i = 0; i < valores.length; i++) {
 	    int casillas = valores[i];
 	    String casilla = casillas + "";
-		long empiezaTiempo = System.currentTimeMillis();
-	    datos.addValue(empiezaTiempo, tiempo, casilla);
+		long milisegundos = System.currentTimeMillis();
+		int segundos = (int) (milisegundos / 1000);
+		int tiempoSegunCasillas = segundos / casillas;
+	    datos.addValue(tiempoSegunCasillas, tiempo, casilla);
 	    }
 
 	    JFreeChart graficoDeBarras = ChartFactory.createBarChart3D(
