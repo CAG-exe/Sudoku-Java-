@@ -37,12 +37,12 @@ public class MatrizTest {
 	
 	@Test (expected= IllegalArgumentException.class)
 	public void ingresarValorNegativo() {
-		assertTrue(matriz.esSeguro(0, 0, -1));
+		matriz.esSeguro(0, 0, -1);
 	}
 	
 	@Test (expected= IllegalArgumentException.class)
 	public void ingresarValorMuyAlto() {
-		assertTrue(matriz.esSeguro(0, 0, 10));
+		matriz.esSeguro(0, 0, 10);
 	}
 	
 	@Test
@@ -203,10 +203,40 @@ public class MatrizTest {
 		   							,{0,1,6,8,1,1,4,3,5}};
 		 m.setMatrizClonada(Mtest);
 	}
-	
+	@Test
 	public void getCantDeValoresPrefijadosTest() {
 		int esperado = 25;
-		matriz.marcarCasillasConNumerosValidos(25);
+		
+		matriz.setCantDeValoresPrefijados(25);
+		
+		assertEquals(esperado, matriz.getCantDeValoresPrefijados());
+	}
+	
+	@Test
+	public void aumetarCantidadDeNumerosIngresadosEnElTableroTest() {
+		int esperado = 1;
+
+		matriz.aumetarCantidadDeNumerosIngresadosEnElTablero(5);
+
+		assertEquals(esperado, matriz.getCantDeValoresPrefijados());
+	}
+	
+	@Test
+	public void NOaumetarCantidadDeNumerosIngresadosEnElTableroTest() {
+		int esperado = -1;
+
+		matriz.aumetarCantidadDeNumerosIngresadosEnElTablero(0);
+
+		assertEquals(esperado, matriz.getCantDeValoresPrefijados());
+	}
+	
+	@Test
+	public void reiniciarCantidadDeNumerosIngresadosEnElTableroTest() {
+		int esperado = 0;
+
+		matriz.aumetarCantidadDeNumerosIngresadosEnElTablero(5);
+		matriz.reiniciarCantidadDeNumerosIngresadosEnElTablero();
+
 		assertEquals(esperado, matriz.getCantDeValoresPrefijados());
 	}
 	

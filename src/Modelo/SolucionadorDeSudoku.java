@@ -10,6 +10,15 @@ public class SolucionadorDeSudoku {
 	}
 	
 	boolean encontrarUnaSolucionRecursivo(Matriz sudokuSolucion, int fila, int columna) {
+		
+		if (sudokuSolucion == null) {
+			throw new IllegalArgumentException("La matriz de Sudoku no puede ser nula.");
+		}
+		
+		if (fila < 0 || fila > 9 || columna < 0 || columna > 9) {
+			throw new IllegalArgumentException("Fila y columna deben estar entre 0 y 8.");
+		}
+		
 		if(sudokuSolucion.matrizCompleta()) {
 			Matriz copiaSolucion = new Matriz(new GeneradorAleatorio());
 			int[][] matrizSudokuClonada = sudokuSolucion.clonar();
@@ -43,6 +52,19 @@ public class SolucionadorDeSudoku {
 	}
 	
 	void encontrarTodasLasSolucionesRecursivo(Matriz sudokuSolucion, int fila, int columna, int maxSolucionesAEncontrar) {
+		
+		if (sudokuSolucion == null) {
+			throw new IllegalArgumentException("La matriz de Sudoku no puede ser nula.");
+		}
+		
+		if (fila < 0 || fila > 9 || columna < 0 || columna > 9) {
+			throw new IllegalArgumentException("Fila y columna deben estar entre 0 y 8.");
+		}
+		
+		if (maxSolucionesAEncontrar < 0) {
+			throw new IllegalArgumentException("El número máximo de soluciones a encontrar debe ser mayor que cero.");
+		}
+		
 		
 		if(solucionesDelSudokuJuego.size() == maxSolucionesAEncontrar){
 			return;

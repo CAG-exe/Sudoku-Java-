@@ -16,12 +16,14 @@ public class GeneradorPrefijado implements Generador {
 			throw new IndexOutOfBoundsException("No hay mas numeros prefijados disponibles");
 		}
 		int numero = numerosPrefijados[indiceActual];
+		System.out.println(numero);
 		indiceActual++;
-		return numero;
+		return numero-1;
 	}
 	
-	public int nextNumeroPrefijado() {
-		return nextInt(9) + 1;
+	@Override
+	public int nextPosicion(int rango) {
+		return indiceActual - 1;
 	}
 
 }

@@ -7,11 +7,11 @@ public class Sudoku {
 	private Matriz sudokuJuego;
 	private List<Matriz> solucionesDelSudokuJuego;
 	private int maxSolucionesAEncontrar;
-	private Generador generadorAleatorio;
+	private Generador generador;
 	
-	public Sudoku(Generador generadorAleatorio) {
-		this.generadorAleatorio = generadorAleatorio;
-		sudokuJuego = new Matriz(generadorAleatorio);
+	public Sudoku(Generador generador) {
+		this.generador = generador;
+		sudokuJuego = new Matriz(generador);
 		solucionesDelSudokuJuego = new ArrayList<Matriz>();
 	}
 	
@@ -19,12 +19,8 @@ public class Sudoku {
 		return sudokuJuego;
 	}
 	
-	public int[][] getMatrizDeSudokuConValoresPrefijados() {
-		return sudokuJuego.getMatrizConValoresPrefijados();
-	}
-	
 	public void resolverSudoku() {
-		 Matriz sudokuSolucion = new Matriz(generadorAleatorio);
+		 Matriz sudokuSolucion = new Matriz(generador);
 		 int[][] matrizSudokuClonada = sudokuJuego.clonar();
 		 sudokuSolucion.setMatrizClonada(matrizSudokuClonada);
 		 int fila = 0;

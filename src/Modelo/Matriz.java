@@ -8,7 +8,6 @@ import java.util.stream.IntStream;
 
 public class Matriz {
 	private int[][] sudoku;
-	private int[][] sudokuConValoresPrefijados;
 	private int cantDeValoresPrefijados;
 	private int maximoValorDePrefijados = 40;
 	private int minimoValorDePrefijados = 15;
@@ -37,8 +36,8 @@ public class Matriz {
 	}
 	
 	public boolean esSeguro(int x, int y, int valor) {
-		if(valor<1 || valor >9)
-			throw new IllegalArgumentException("el valor tiene que estar entre 1 y 9");
+		if(valor<0 || valor >9)
+			throw new IllegalArgumentException("el valor tiene que estar entre 0 y 9");
 		if(sudoku[x][y] == valor || posicionValidaParaValor(x,y,valor)) {
 			return false;
 		}
@@ -109,7 +108,6 @@ public class Matriz {
 	}
 	
 	public void marcarCasillasConNumerosValidos(int num) {
-		System.out.println(num);
 		setCantDeValoresPrefijados(num);
 		if(num<minimoValorDePrefijados || num>maximoValorDePrefijados) {
 			throw new IllegalArgumentException("numero de casillas no valido, tiene que estar entre 15 o 40");
@@ -117,17 +115,10 @@ public class Matriz {
 		for(int i=0;i<num;i++){
 			buscarCasillaYmarcar();
 		}
-		sudokuConValoresPrefijados = clonar();
 	}
 
 	void setCantDeValoresPrefijados(int num) {
-		sudokuConValoresPrefijados = clonar();
 		cantDeValoresPrefijados = num;
-	}
-	
-	public int[][] getMatrizConValoresPrefijados() {
-		sudokuConValoresPrefijados = clonar();
-		return sudokuConValoresPrefijados;
 	}
 
 	private void buscarCasillaYmarcar() {
@@ -143,7 +134,7 @@ public class Matriz {
 	}
 
 	private int[] posionesAleatoria() {
-		int pos= random.nextInt(sudoku.length*sudoku.length);
+		int pos= random.nextPosicion(sudoku.length*sudoku.length);
 		return new int[] {pos/sudoku.length,pos%sudoku.length};
 	}
 
@@ -174,7 +165,7 @@ public class Matriz {
 	 }
 
 	 public void reiniciarCantidadDeNumerosIngresadosEnElTablero() {
-		 cantDeValoresPrefijados = 0;
+		    cantDeValoresPrefijados = 0;
 	 }
 	 
 	 

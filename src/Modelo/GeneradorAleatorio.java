@@ -10,8 +10,9 @@ public class GeneradorAleatorio implements Generador {
 		return (int) (Math.random() * rango);
 	}
 	
-	public int nextNumeroPrefijado() {
-		return nextInt(9) + 1;
+	@Override
+	public int nextPosicion(int rango) {
+		return (int) (Math.random() * rango);
 	}
 
 }
