@@ -17,6 +17,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import Controlador.Controlador;
@@ -163,7 +164,16 @@ public class Menu extends JPanel{
 						ingresoOSoloNumeros(e);
 					}
 				});
-				
+				JTextArea info = new JTextArea(
+			            " Si la cantidad de valores prefijados\n es mayor o igual a 17, buscará una\n única solución."
+			        );
+				info.setEditable(false);
+				info.setOpaque(false);
+				info.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+				info.setBounds(20, 350, 330, 80); 
+				info.setForeground(new Color(64,60,60));
+		        opcionesEstadisticas.add(info);	
+		        
 				opcionesEstadisticas.add(matriz3Field);
 				
 				String errorText = "las casillas deben ser entre 0 y 81";

@@ -182,14 +182,21 @@ public class Controlador {
 	public void generarEstadisticas(int val1, int val2, int val3,int cantSoluciones) {   
 	    int[] valores = {val1, val2, val3};
 	    long[] tiempo = new long[3];
+	    boolean instanciaInvalida = true;
+	    long empiezaTiempo = 0;
+	    long terminaTiempo = 0;
 	    for (int i = 0; i < valores.length; i++) {
-	        sudokuModelo.reiniciarSudoku();
-		    sudokuModelo.setMaxSolucionesAEncontrar(cantSoluciones);
-	        sudokuModelo.getMatrizJuego().marcarCasillasConNumerosValidos(valores[i]);
-	        long empiezaTiempo = System.currentTimeMillis();
-	        sudokuModelo.resolverSudoku();
-	        long terminaTiempo = System.currentTimeMillis();
-	        tiempo[i] = terminaTiempo - empiezaTiempo;
+	    	while (instanciaInvalida) {
+	    		sudokuModelo.reiniciarSudoku();
+	    		sudokuModelo.setMaxSolucionesAEncontrar(cantSoluciones);
+	    		sudokuModelo.getMatrizJuego().marcarCasillasConNumerosValidos(valores[i]);
+	    		empiezaTiempo = System.currentTimeMillis();
+	    		sudokuModelo.resolverSudoku();
+	    		terminaTiempo = System.currentTimeMillis();
+	    		instanciaInvalida = sudokuModelo.getSoluciones().size() == 0;
+	    }
+	    	tiempo[i] = terminaTiempo - empiezaTiempo;
+	    	instanciaInvalida = true;
 	    }
 	    JFreeChart grafico = crearGrafico(valores, tiempo);
 	    mostrarGrafico(grafico);
@@ -200,13 +207,13 @@ public class Controlador {
 	    String tiempoResolucion = "Tiempo de resolución";
 
 	    for (int i = 0; i < valores.length; i++) {
-	        String casillas = valores[i] + " Casillas";
+	    	String casillas = valores[i] + " Casillas (Prueba " + (i + 1) + ")";
 	        
-	        datos.addValue(tiempo[i], tiempoResolucion, casillas);
+	        datos.addValue(tiempo[i], casillas, tiempoResolucion);
 	    }
 
 	    JFreeChart graficoDeBarras = ChartFactory.createBarChart3D(
-	        "PRUEBA",
+	        "Ejecución",
 	        "Dificultad por Cantidad de Casillas Prefijadas",
 	        "Tiempo promedio de resolución (milisegundos)",
 	        datos,
