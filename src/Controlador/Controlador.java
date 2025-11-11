@@ -179,25 +179,30 @@ public class Controlador {
 		interfazFrame.mostrarPanelSoluciones(visor);
 	}
 	
-	public void generarEstadisticas(int val1, int val2, int val3) {   
+	public void generarEstadisticas(int val1, int val2, int val3,int cantSoluciones) {   
 	    int[] valores = {val1, val2, val3};
-	    JFreeChart grafico = crearGrafico(valores);
+	    long[] tiempo = new long[3];
+	    for (int i = 0; i < valores.length; i++) {
+	        sudokuModelo.reiniciarSudoku();
+		    sudokuModelo.setMaxSolucionesAEncontrar(cantSoluciones);
+	        sudokuModelo.getMatrizJuego().marcarCasillasConNumerosValidos(valores[i]);
+	        long empiezaTiempo = System.currentTimeMillis();
+	        sudokuModelo.resolverSudoku();
+	        long terminaTiempo = System.currentTimeMillis();
+	        tiempo[i] = terminaTiempo - empiezaTiempo;
+	    }
+	    JFreeChart grafico = crearGrafico(valores, tiempo);
 	    mostrarGrafico(grafico);
-
 	}
-	private JFreeChart crearGrafico(int[] valores) {
-	    DefaultCategoryDataset datos = new DefaultCategoryDataset();
-	    
-	    
-	    String tiempo = "Tiempo (ms)";
+	
+	private JFreeChart crearGrafico(int[] valores, long[] tiempo) {
+	    DefaultCategoryDataset datos = new DefaultCategoryDataset();    
+	    String tiempoResolucion = "Tiempo de resolución";
 
 	    for (int i = 0; i < valores.length; i++) {
-	    int casillas = valores[i];
-	    String casilla = casillas + "";
-		long milisegundos = System.currentTimeMillis();
-		int segundos = (int) (milisegundos / 1000);
-		int tiempoSegunCasillas = segundos / casillas;
-	    datos.addValue(tiempoSegunCasillas, tiempo, casilla);
+	        String casillas = valores[i] + " Casillas";
+	        
+	        datos.addValue(tiempo[i], tiempoResolucion, casillas);
 	    }
 
 	    JFreeChart graficoDeBarras = ChartFactory.createBarChart3D(

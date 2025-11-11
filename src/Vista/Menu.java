@@ -200,13 +200,22 @@ public class Menu extends JPanel{
 					    error3Label.setVisible(error3);
 					    
 					    if(!error1 && !error2 && !error3) {
-						int valor1 = Integer.parseInt(matriz1Field.getText().trim());
-				        int valor2 = Integer.parseInt(matriz2Field.getText().trim());
-				        int valor3 = Integer.parseInt(matriz3Field.getText().trim());			    
-						opcionesEstadisticas.dispose();
-						controlador.generarEstadisticas(valor1, valor2, valor3);
+						int valor1 = Integer.parseInt(matriz1Field.getText());
+				        int valor2 = Integer.parseInt(matriz2Field.getText());
+				        int valor3 = Integer.parseInt(matriz3Field.getText());
+				        String cantSoluciones = JOptionPane.showInputDialog(
+					            opcionesEstadisticas,
+					            "¿Cuántas soluciones quieres encontrar?",
+					            "",
+					            JOptionPane.QUESTION_MESSAGE
+					        );
+				        if (cantSoluciones != null) {
+				        	int cantidadSoluciones = Integer.parseInt(cantSoluciones.trim());
+				        	opcionesEstadisticas.dispose();
+				        	controlador.generarEstadisticas(valor1, valor2, valor3,cantidadSoluciones);
 					    }
 					}
+				}
 				});
 				opcionesEstadisticas.add(estadisticasButton);
 				opcionesEstadisticas.setModal(true);
