@@ -10,7 +10,7 @@ public class Matriz {
 	private int[][] sudoku;
 	private int cantDeValoresPrefijados;
 	private int maximoValorDePrefijados = 40;
-	private int minimoValorDePrefijados = 15;
+	private int minimoValorDePrefijados = 0;
 	private static Generador random;
 	
 	public Matriz(Generador random) {
@@ -110,7 +110,7 @@ public class Matriz {
 	public void marcarCasillasConNumerosValidos(int num) {
 		setCantDeValoresPrefijados(num);
 		if(num<minimoValorDePrefijados || num>maximoValorDePrefijados) {
-			throw new IllegalArgumentException("numero de casillas no valido, tiene que estar entre 15 o 40");
+			throw new IllegalArgumentException("numero de casillas no valido, tiene que estar entre" + minimoValorDePrefijados + " o " + maximoValorDePrefijados + " 40");
 		}
 		for(int i=0;i<num;i++){
 			buscarCasillaYmarcar();

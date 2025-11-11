@@ -27,6 +27,8 @@ public class Menu extends JPanel{
 	private static final long serialVersionUID = 1L;
 	protected JButton ComoJugarButton;
 	private Color color; 
+	private int minimoPrefijados = 0;
+	private int maximoPrefijados = 40;
 	
 	public Menu(Controlador controlador, Sudoku sudoku) {
 		setBounds(100, 100, 800, 600);
@@ -80,13 +82,13 @@ public class Menu extends JPanel{
 					);
 					if (texto != null) {
 						int cantidad = Integer.parseInt(texto.trim());
-						if (cantidad >= 15 && cantidad <= 40) {
+						if (cantidad >= minimoPrefijados && cantidad <= maximoPrefijados) {
 							controlador.mostrarSudokuAleatorio(cantidad);
 						}
 						else {
 							Component frame = null;
 							JOptionPane.showMessageDialog(frame, 
-									"Entre 15 y 40.", 
+									"Entre 0 y 40.", 
 									"", 
 									JOptionPane.ERROR_MESSAGE);
 						}
