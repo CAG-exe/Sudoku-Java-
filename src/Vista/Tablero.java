@@ -20,16 +20,14 @@ public class Tablero extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField[][]  matrizGUI;
-	private Matriz sudoku;;
+	private Matriz sudoku;
 	private Controlador controlador;
-	//private Sudoku sudokuModelo;
 	private Color colorFondoCasillasPrefijadas = new Color(195, 215, 234);
 	private Color colorFondoCasillas = Color.WHITE;
 	private Color colorFondoResaltado = new Color(225, 245, 255);
 
 	public Tablero(Controlador controlador, Sudoku sudokuModelo, int cantidadValoresPrefijados) {
 		this.controlador = controlador;
-		//this.sudokuModelo = sudokuModelo;
 		controlador.setTablero(this);
 		setLayout(null);
 		Sudoku su = sudokuModelo;

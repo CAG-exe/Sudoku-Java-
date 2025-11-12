@@ -23,9 +23,6 @@ public class SudokuVisual extends JPanel {
 	private int cantidadValoresPrefijados;
 	private Tablero tablero;
 	
-	/**
-	 * Create the panel.
-	 */
 	public SudokuVisual(Controlador controlador, Sudoku sudokuModelo,int cantidadValoresPrefijados) {
 		this.controlador = controlador;
 		this.sudokuModelo = sudokuModelo;

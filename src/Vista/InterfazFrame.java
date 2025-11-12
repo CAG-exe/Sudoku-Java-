@@ -8,9 +8,9 @@ import Modelo.Sudoku;
 
 public class InterfazFrame extends JFrame{
 
-	private static final long serialVersionUID = 1L;                                   ///////////// 
-	private Controlador controlador;								/////////////
-	private Sudoku sudokuModelo;						           /////////////				      /////////////	
+	private static final long serialVersionUID = 1L;                                  
+	private Controlador controlador;								
+	private Sudoku sudokuModelo;						           				      
 	private Menu menu;
 	
 

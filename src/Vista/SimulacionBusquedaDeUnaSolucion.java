@@ -2,7 +2,6 @@ package Vista;
 
 import java.util.List;
 
-import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
 

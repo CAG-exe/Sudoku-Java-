@@ -1,7 +1,6 @@
 package Controlador;
 
 import java.awt.Dimension;
-import java.awt.TextArea;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
@@ -238,7 +237,6 @@ public class Controlador {
 
 	public void buscarSolucionUnica(JProgressBar barraDeProceso, JLabel textBuscando,
 			VisorDeSoluciones visorDeSoluciones) {
-		// TODO Auto-generated method stub
 		
 	}
 

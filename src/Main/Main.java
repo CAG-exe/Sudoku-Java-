@@ -19,7 +19,7 @@ public class Main {
 				try {
 				    UIManager.setLookAndFeel( new FlatMaterialLighterIJTheme() );
 				} catch( Exception ex ) {
-				    System.err.println( "Failed to initialize LaF" );
+				    System.err.println( "Falló al inicializar" );
 				}
 				try {
 					Controlador controlador = new Controlador();
