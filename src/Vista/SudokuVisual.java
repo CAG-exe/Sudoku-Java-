@@ -61,7 +61,6 @@ public class SudokuVisual extends JPanel {
 		});
 		volverAlMenu.setBounds(612, 493, 153, 52);
 		add(volverAlMenu);
-		System.out.println(cantidadValoresPrefijados);
 		
 		
 	}
@@ -87,7 +86,7 @@ public class SudokuVisual extends JPanel {
 				"",
 				JOptionPane.CANCEL_OPTION
 			);
-			if (texto != null) {
+			if (texto != null && esUnNumero(texto)) {
 				cantidad = Integer.parseInt(texto.trim());
 				if (cantidad > 0) {
 					return cantidad;
@@ -101,6 +100,19 @@ public class SudokuVisual extends JPanel {
 				}
 			}
 		return -1;
+	}
+
+	private boolean esUnNumero(String texto) {
+		try {
+			Integer.parseInt(texto.trim());
+			return true;
+
+		} catch (NumberFormatException ex) {
+			Component frame = null;
+			JOptionPane.showMessageDialog(frame, "Tiene que ser un numero mayor a 0", "",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
 	}
 
 	public void mostrarMensajeDeSudokuSinSoluciones() {

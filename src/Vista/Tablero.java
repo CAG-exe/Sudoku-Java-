@@ -34,7 +34,6 @@ public class Tablero extends JPanel {
 		sudoku = su.getMatrizJuego();
 		matrizGUI = new JTextField[9][9]; 
 		constructorDeMatriz();
-		System.out.println(cantidadValoresPrefijados);
 		if(cantidadValoresPrefijados>0) {
 			sudoku.marcarCasillasConNumerosValidos(cantidadValoresPrefijados);
 		}

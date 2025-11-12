@@ -80,7 +80,8 @@ public class Menu extends JPanel{
 						"",
 						JOptionPane.CANCEL_OPTION
 					);
-					if (texto != null) {
+					if (texto != null && esUnNumero(texto)) {
+						
 						int cantidad = Integer.parseInt(texto.trim());
 						if (cantidad >= minimoPrefijados && cantidad <= maximoPrefijados) {
 							controlador.mostrarSudokuAleatorio(cantidad);
@@ -93,6 +94,18 @@ public class Menu extends JPanel{
 									JOptionPane.ERROR_MESSAGE);
 						}
 					}
+			}
+
+			private boolean esUnNumero(String texto) {
+				try {
+					Integer.parseInt(texto.trim());
+					return true;
+					
+				} catch (NumberFormatException ex) {
+					Component frame = null;
+					JOptionPane.showMessageDialog(frame, "Entre 0 y 40.", "", JOptionPane.ERROR_MESSAGE);
+					return false;
+				}
 			}
 	});
 		
